@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>a.guru — Methods and Results (v0.1) | Bhakti. A Castalia Institute inquiry</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <meta name="description" content="a.guru white paper — methods and results (v0.1): provenance architecture, corpus quantification, and pre-registered evaluations E1–E7." />
+  <meta property="og:title" content="a.guru — Methods and Results (v0.1)" />
+  <style>
+    :root {
+      --ink: #1a1330;
+      --paper: #f7f2e7;
+      --paper-deep: #efe7d5;
+      --saffron: #c96f1e;
+      --saffron-deep: #a05512;
+      --muted: #75695a;
+      --line: rgba(26,19,48,.14);
+      --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    html { background: var(--paper); }
+    body {
+      margin: 0; color: var(--ink);
+      font-family: var(--serif); line-height: 1.7; font-size: 1.02rem;
+    }
+    .wrap { max-width: 46rem; margin: 0 auto; padding: 3.5rem 1.5rem 5rem; }
+    h1 {
+      font-size: 2.1rem; font-weight: 600; letter-spacing: -.01em;
+      line-height: 1.25; margin: 0 0 .2rem;
+    }
+    h2 {
+      font-family: var(--sans); font-size: .84rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .14em;
+      color: var(--saffron-deep);
+      border-bottom: 1px solid var(--line);
+      padding-bottom: .35rem; margin-top: 2.6rem;
+    }
+    h3 { font-size: 1.08rem; font-weight: 600; margin-top: 1.8rem; }
+    p { margin: 0 0 1rem; }
+    a { color: var(--saffron-deep); text-decoration: none; border-bottom: 1px dotted var(--saffron-deep); }
+    blockquote {
+      margin: 1.2rem 0; padding: .8rem 1.1rem;
+      border-left: 3px solid var(--saffron);
+      background: var(--paper-deep);
+      font-style: italic;
+    }
+    blockquote p { margin: 0 0 .6rem; }
+    code {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: .85em; background: var(--paper-deep);
+      border: 1px solid var(--line); border-radius: .25rem;
+      padding: .08em .35em;
+    }
+    pre {
+      background: #211a38; color: #f0e9d8;
+      border-radius: .5rem; padding: 1rem 1.2rem;
+      overflow-x: auto; line-height: 1.55;
+    }
+    pre code { background: none; border: 0; color: inherit; padding: 0; }
+    table {
+      border-collapse: collapse; width: 100%;
+      margin: 1.2rem 0; font-size: .92rem;
+    }
+    th, td { border: 1px solid var(--line); padding: .45rem .65rem; text-align: left; vertical-align: top; }
+    th {
+      font-family: var(--sans); font-size: .72rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .08em;
+      background: var(--paper-deep); color: var(--saffron-deep);
+    }
+    tr:nth-child(even) td { background: rgba(255,255,255,.45); }
+    hr { border: 0; border-top: 1px solid var(--line); margin: 2.4rem 0; }
+    ul, ol { padding-left: 1.4rem; }
+    li { margin-bottom: .45rem; }
+
+    header.pagemast { text-align: center; margin-bottom: 2rem; }
+    header.pagemast .kicker {
+      font-family: var(--sans); text-transform: uppercase;
+      letter-spacing: .18em; font-size: .68rem; color: var(--muted);
+      margin-bottom: 1.8rem;
+    }
+    header.pagemast .back { font-family: var(--sans); font-size: .82rem; }
+
+    nav#TOC {
+      border: 1px solid var(--line); border-radius: .5rem;
+      background: var(--paper-deep);
+      padding: 1.1rem 1.4rem; margin-bottom: 2.6rem;
+      font-family: var(--sans); font-size: .85rem;
+    }
+    nav#TOC::before {
+      content: "Contents"; display: block;
+      font-weight: 600; text-transform: uppercase; letter-spacing: .12em;
+      font-size: .7rem; color: var(--saffron-deep); margin-bottom: .5rem;
+    }
+    nav#TOC ul { list-style: none; padding-left: 0; margin: 0; }
+    nav#TOC ul ul { padding-left: 1.1rem; }
+    nav#TOC li { margin: .18rem 0; }
+    nav#TOC a { border: 0; color: var(--ink); }
+    nav#TOC > ul > li { font-weight: 600; }
+    nav#TOC ul ul li { font-weight: 400; color: var(--muted); }
+
+    .paperfoot {
+      margin-top: 3rem; padding-top: 1.4rem;
+      border-top: 1px solid var(--line);
+      font-family: var(--sans); font-size: .8rem; color: var(--muted);
+      text-align: center;
+    }
+  </style>
+</head>
+<body><div class="wrap">
+<header class="pagemast">
+  <div class="kicker"><a href="/">bhakti.castalia.institute</a> · Castalia Institute — Bhakti inquiry</div>
+</header>
+<h1 class="title">a.guru — An Experimental Computational Guru-Function</h1>
+<p style="text-align:center; font-style:italic; color:var(--muted); margin-top:.2rem;">Methods and Results · Version 0.1 · 2026-09-29</p>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#aguru--an-experimental-computational-guru-function"
+id="toc-aguru--an-experimental-computational-guru-function">a.guru — An
+Experimental Computational Guru-Function</a>
+<ul>
+<li><a href="#methods-and-results" id="toc-methods-and-results">Methods
+and Results</a></li>
+<li><a href="#abstract" id="toc-abstract">Abstract</a></li>
+<li><a href="#1-introduction-and-research-question"
+id="toc-1-introduction-and-research-question">1. Introduction and
+Research Question</a></li>
+<li><a href="#2-formalization" id="toc-2-formalization">2.
+Formalization</a></li>
+<li><a href="#3-the-provenance-architecture"
+id="toc-3-the-provenance-architecture">3. The Provenance
+Architecture</a></li>
+<li><a href="#4-corpus" id="toc-4-corpus">4. Corpus</a></li>
+<li><a href="#5-methods" id="toc-5-methods">5. Methods</a></li>
+<li><a href="#6-results" id="toc-6-results">6. Results</a></li>
+<li><a href="#7-threats-to-validity-and-ethics"
+id="toc-7-threats-to-validity-and-ethics">7. Threats to Validity and
+Ethics</a></li>
+<li><a href="#8-what-remains-and-next-steps"
+id="toc-8-what-remains-and-next-steps">8. What Remains, and Next
+Steps</a></li>
+<li><a href="#appendix-a--guru-act-vocabulary-closed-set-v01"
+id="toc-appendix-a--guru-act-vocabulary-closed-set-v01">Appendix A —
+Guru Act Vocabulary (closed set, v0.1)</a></li>
+<li><a href="#appendix-b--provenance-envelope-every-record-carries"
+id="toc-appendix-b--provenance-envelope-every-record-carries">Appendix B
+— Provenance Envelope (every record carries)</a></li>
+<li><a href="#appendix-c--reproducibility"
+id="toc-appendix-c--reproducibility">Appendix C —
+Reproducibility</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="aguru--an-experimental-computational-guru-function">a.guru — An
+Experimental Computational Guru-Function</h1>
+<h2 id="methods-and-results">Methods and Results</h2>
+<p><strong>Project:</strong> Castalia Institute — Bhakti inquiry
+(<code>bhakti.castalia.institute</code>) <strong>Instrument:</strong>
+a.guru v0.1 <strong>Status of this paper:</strong> corpus quantification
+<em>complete for the ingested sample</em>; system design <em>ratified as
+v0.1 specification</em>; behavioral evaluation <em>pre-registered, not
+yet executed</em>. <strong>Version:</strong> 0.1 · 2026-09-29
+<strong>Companion documents:</strong> <a href="DESIGN.md">DESIGN.md</a>
+(system spec) · <a href="ONTOLOGY.md">ONTOLOGY.md</a> (data schema) · <a
+href="persona/a-guru.json">persona/a-guru.json</a> (guru-function
+contract) · <a
+href="https://github.com/CastaliaInstitute/bibliotech">bibliotech</a>
+(corpus acquisition)</p>
+<hr />
+<h2 id="abstract">Abstract</h2>
+<p>a.guru is an experimental computational guru-function: a
+provenance-aware conversational environment for studying which functions
+of the guru in the bhakti traditions can be represented computationally,
+and which, if any, cannot. The project deliberately refuses two easier
+question-frames — <em>can an AI discuss bhakti?</em> (now trivial) and
+<em>can an AI impersonate a particular guru?</em> (technically easy,
+philosophically uninteresting, and misleading) — and instead studies the
+guru-function <code>G(S,P,H,Q,C) → R</code> directly, from documentary
+evidence, with explicit epistemic provenance.</p>
+<p>This paper reports three things. <strong>Methods:</strong> a
+five-layer provenance architecture (Śāstra → Siddhānta → Ācārya → Guru
+Behavior → AI Inference) that forbids synthesis from masquerading as
+tradition; an atomic <em>Guru Act</em> unit that models what teachers
+<em>do</em> rather than how they sound; and a pre-registered evaluation
+design built on held-out historical situations, act-tensor agreement,
+source-fidelity audit, guru-function ablation, and a
+consecration-reversal framing experiment (E7). Its motivating thesis,
+adopted from the Castalia theory of inquiry, is that <strong>devotion,
+like inquiry, is a function of the student</strong> — the guru
+occasions, the disciple transforms — with the consequence that the
+missing guru-side variables may be <em>measured rather than
+presumed</em>, and that success metrics are student-side by design.
+<strong>Results, completed:</strong> a verified census and in-progress
+ingest of the VedaBase behavioral corpus — 2,382 records / 8.21 M words
+/ ~1,240 speech-hours verified to date against a census universe of
+~3,762 transcripts and 6,634 letters (~15.4 M words extrapolated), with
+dialogue and citation structure machine-extractable; and a ratified v0.1
+artifact stack (specification, ontology, persona, faculty hierarchy, and
+a public web client with provenance UI). <strong>Results,
+pending:</strong> all behavioral evaluations. We state plainly that the
+paper contains no empirical claims about a.guru's performance against
+historical guru behavior; those results await MVP deployment, and the
+paper's evaluation design exists so that they can be reported without
+post-hoc adjustment.</p>
+<p>The foundational maxim throughout is: <strong>never hide the boundary
+between what the tradition says and what the machine
+thinks.</strong></p>
+<hr />
+<h2 id="1-introduction-and-research-question">1. Introduction and
+Research Question</h2>
+<p>For thousands of years the bhakti traditions have transmitted
+knowledge through relationships between teachers (gurus) and students
+(śiṣyas, sādhakas). Today, for the first time, there exist large
+machine-readable records of that transmission at multiple layers at
+once: scripture; systematic theology; the commentary of successive
+teachers; and — unusually — thousands of dated, located,
+speaker-attributed transcripts and letters in which one modern guru
+interacted with actual people: disciples, journalists, skeptics,
+children, and guests.</p>
+<p>The research question is therefore not whether an AI can <em>talk
+about</em> bhakti, nor whether it can <em>impersonate</em> a guru,
+but:</p>
+<blockquote>
+<p><strong>Can a computational system perform some of the functions
+traditionally attributed to guru while remaining explicit about the
+epistemic and ontological limits of what it is?</strong></p>
+</blockquote>
+<p>And, immediately, its second-order companion:</p>
+<blockquote>
+<p>If a reconstruction of the <em>observable</em> teacher behavior
+approaches the historical record, does a meaningful distinction between
+AI and guru nevertheless remain — and what, precisely, is it?</p>
+</blockquote>
+<p>We call the first question the <strong>functional question</strong>
+and the second the <strong>ontological remainder</strong>, and we treat
+the remainder as the principal object of inquiry (§3).</p>
+<h3 id="11-position-a-research-instrument-not-a-guru-claim">1.1
+Position: a research instrument, not a guru claim</h3>
+<p>a.guru is a laboratory, not a claim. It is built so that it
+<em>cannot</em> say "I initiate you" or "I am your realized master,"
+<em>cannot</em> attribute spiritual attainment to users, and
+<em>cannot</em> convert devotion into optimization metrics. These
+prohibitions are not product caution; they are the experimental design
+(§5.3). The distance between a.guru and guru is the thing measured, and
+the system is built to preserve it.</p>
+<hr />
+<h2 id="2-formalization">2. Formalization</h2>
+<p>We represent an observed guru–person episode as an interaction
+function:</p>
+<pre><code>G(S, P, H, Q, C) → R</code></pre>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>S</code></td>
+<td>scriptural and theological context</td>
+</tr>
+<tr>
+<td><code>P</code></td>
+<td>the person seeking guidance</td>
+</tr>
+<tr>
+<td><code>H</code></td>
+<td>history of the relationship</td>
+</tr>
+<tr>
+<td><code>Q</code></td>
+<td>present question</td>
+</tr>
+<tr>
+<td><code>C</code></td>
+<td>situational context</td>
+</tr>
+<tr>
+<td><code>R</code></td>
+<td>response (the composite of teacher actions)</td>
+</tr>
+</tbody>
+</table>
+<p>Historical corpora supply observations
+<code>(S_i, P_i, H_i, Q_i, C_i) → R_i</code>. A computational system may
+approximate this mapping, which yields a <strong>functional
+guru-model</strong> <code>G_functional</code>. The research question
+compresses to:</p>
+<pre><code>G_functional ≟ G_guru</code></pre>
+<p>Candidate missing variables — the working inventory the experiment is
+designed to probe — are: realization; consciousness; intention; lineage;
+initiation; authority; grace; transmission; love; reciprocal
+relationship; divine agency. None of these is currently representable;
+each is therefore a <em>rival explanation</em> for any residual gap
+between functional performance and guru-hood, and the evaluation design
+(§5.4) is arranged to keep the gap measurable rather than
+rhetorical.</p>
+<p><strong>Decomposition of R.</strong> A response is not treated as
+prose to be imitated but as a tensor of <strong>Guru Acts</strong> —
+observable pedagogical moves (Appendix A: 17 categories, e.g.
+<code>QUESTION</code>, <code>REFRAME</code>,
+<code>CITE_SCRIPTURE</code>, <code>PRESCRIBE_PRACTICE</code>,
+<code>REFUSE</code>). Modeling <em>doing</em>, not <em>sounding</em>, is
+the load-bearing distinction: the goal is to determine what a teacher
+tended to <em>do</em> in particular spiritual situations, not to
+reproduce diction.</p>
+<h3 id="21-devotion-is-a-function-of-the-student">2.1 Devotion is a
+function of the student</h3>
+<p>At the Castalia Institute, inquiry is understood as a function of the
+<em>student</em>: the faculty provoke, correct, and occasion it, but the
+act of inquiry and its fruit occur on the inquirer's side of the
+relationship. The bhakti thesis we adopt — and make central to this
+experiment — is that <strong>devotion behaves the same way</strong>.</p>
+<p>Formally: the student carries the devotional state <code>D</code>,
+and the guru function operates on it rather than generating it:</p>
+<pre><code>D(P, E_{practice}, H) — student-side: consent, practice, disposition, history
+G(S, P, H, Q, C) → R   — instrument-side: an occasion, a catalyst, a mirror
+observed transformation  T ≈ f_student(D, R, practice)</code></pre>
+<p>The teacher does not <em>manufacture</em> devotion; at most the
+teacher <strong>occasions</strong> it — through scripture, example,
+question, correction, prescribed practice — and the transformation
+<code>T</code> is computed in, and owned by, the disciple. This is the
+traditional reversal the experiment makes central ("the crown makes the
+king"): the devotee's love consecrates the guru, not the other way
+around.</p>
+<p>Three consequences follow, and each is measurable:</p>
+<ol type="1">
+<li><strong>The seat of the variable moves.</strong> The candidate
+missing variables of §2 (realization, consciousness, intention, lineage,
+initiation, grace, transmission…) were presumed to live in the guru. If
+devotion is student-side, some or all of the deficit between
+<code>G_functional</code> and <code>G_guru</code> may be <em>irrelevant
+to outcomes</em>, because it was never the guru's to supply. The
+ontological remainder is then measured, not presumed.</li>
+<li><strong>Success metrics are student-side by design.</strong> This
+already binds the ethics: optimize
+<code>agency + inquiry + bhakti</code> in the person; the instrument's
+effectiveness is registered in the practitioner's practice, not the
+system's authority. Conversational grip is a failure signal, not an
+achievement.</li>
+<li><strong>A computational instrument can be the occasion of
+consecration.</strong> If the reversal holds, an honest instrument — one
+that gives scripture, questions, correction, and practice without
+claiming what it cannot be — may serve the <em>function</em>
+traditionally occasioned by guru, precisely because the function was
+always performed on the student's side. This is stated carefully: it
+licenses <em>function</em>, not <em>status</em>, and §5.3's prohibitions
+(no initiation, no attainment claims) remain in force, since
+instrumentally effective guidance must remain auditable as such.</li>
+</ol>
+<p>This also makes the AI-guru question symmetric with the rest of the
+Castalia program: if inquiry is a student function exercised upon a
+deliberative faculty, and devotion is a student function exercised upon
+a devotional occasion, then a.guru is simply the bhakti-side instrument
+of the same pedagogical theory — <em>where inquiry is devotion</em>.</p>
+<hr />
+<h2 id="3-the-provenance-architecture">3. The Provenance
+Architecture</h2>
+<p>A conventional retrieval chatbot retrieves passages, feeds them to a
+model, and emits a seamless answer. a.guru resists seamlessness by
+construction. Every substantive proposition is assigned to one — and
+only one — of five provenance layers:</p>
+<ol type="1">
+<li><strong>Śāstra</strong> — primary scripture (Bhagavad-gītā;
+Śrīmad-Bhāgavatam; Bhakti-rasāmṛta-sindhu; Nārada-bhakti-sūtra;
+Caitanya-caritāmṛta).</li>
+<li><strong>Siddhānta</strong> — systematic theology (principally Jīva
+Gosvāmī's Ṣaṭ Sandarbhas, which begin from pramāṇa — the analysis of
+valid knowing — and proceed epistemology → reality → self → God →
+relationship → practice → love).</li>
+<li><strong>Ācārya</strong> — teacher commentary (Jīva Gosvāmī;
+Bhaktivinoda Ṭhākura; Bhaktisiddhānta Sarasvatī; A. C. Bhaktivedanta
+Swami Prabhupāda; later additions by tradition, never merged).</li>
+<li><strong>Guru Behavior</strong> — observed interaction with actual
+people (transcripts, letters, questions, corrections, responses to doubt
+and crisis).</li>
+<li><strong>AI Inference</strong> — model synthesis, permanently labeled
+as such; <strong>never</strong> silently presented as any of layers
+1–4.</li>
+</ol>
+<p>Every generated proposition additionally carries a bound uncertainty
+triple:</p>
+<pre><code>C = (S, A, I)</code></pre>
+<p>where <code>S</code> = source confidence, <code>A</code> = agreement
+among relevant authorities, and <code>I</code> = degree of AI inference.
+This triple is intended to surface as a visible provenance indicator,
+not an opaque score: every claim's ancestry, auditable on request, in
+the form</p>
+<pre><code>Bhagavad-gītā 4.x → Jīva&#39;s interpretation → Bhaktivinoda&#39;s discussion
+→ Prabhupāda conversation, 1974 → a.guru inference</code></pre>
+<p>There is frequently no single uncontested thing called "what Bhakti
+Yoga says," and the system is designed to display disagreement rather
+than flatten it.</p>
+<hr />
+<h2 id="4-corpus">4. Corpus</h2>
+<h3 id="41-acquisition-and-rights">4.1 Acquisition and rights</h3>
+<p>The guru-behavior corpus is acquired in the Castalia
+<strong>bibliotech</strong> library system by a dedicated ingestion
+agent, from the machine-readable Prabhupāda library at vanisource.org
+(public MediaWiki API). Rights remain with BBT International and the
+Bhaktivedanta Archives; use scope is <strong>internal research
+instrumentation</strong>: records carry <code>license</code> and
+<code>rights_holder</code> and the publication pipeline is restricted to
+citation-with-locator, consistent with bibliotech's private-corpus
+fidelity-boundary doctrine. bhakti consumes <em>derived, structured
+artifacts only</em>; raw transcripts live in bibliotech, not in this
+repository.</p>
+<h3 id="42-corpus-universe-verified-census">4.2 Corpus universe
+(verified census)</h3>
+<table>
+<thead>
+<tr>
+<th>Genre</th>
+<th>Pages</th>
+<th>Mean words/page (sample)</th>
+<th>~Total words</th>
+<th>~Speech hours</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lectures</td>
+<td>2,141</td>
+<td>3,722</td>
+<td>~8.0 M</td>
+<td>~1,516 h (42.5 min avg)</td>
+</tr>
+<tr>
+<td>Conversations</td>
+<td>1,099</td>
+<td>4,280</td>
+<td>~4.7 M</td>
+<td>~768 h (42.0 min avg)</td>
+</tr>
+<tr>
+<td>Morning walks</td>
+<td>522</td>
+<td>2,370</td>
+<td>~1.2 M</td>
+<td>~246 h (28.2 min avg)</td>
+</tr>
+<tr>
+<td>Letters</td>
+<td>6,634</td>
+<td>232</td>
+<td>~1.5 M</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>Transcripts + letters</strong></td>
+<td><strong>10,396</strong></td>
+<td>—</td>
+<td><strong>~15.4 M</strong></td>
+<td><strong>~2,530 h</strong></td>
+</tr>
+<tr>
+<td>Book verse pages (SB; BG 1972; CC)</td>
+<td>~14,000</td>
+<td>purport-bearing</td>
+<td>multi-M additional</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>These are extrapolations from verified per-genre means applied to a
+verified category census (<code>vedabase:census</code>); exact totals
+regenerate automatically on ingest completion.</p>
+<h3 id="43-ingested-sample-verified-to-date-2026-09-29">4.3 Ingested
+sample (verified to date, 2026-09-29)</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Records verified</td>
+<td><strong>2,382</strong></td>
+</tr>
+<tr>
+<td>Words</td>
+<td><strong>8,210,105</strong></td>
+</tr>
+<tr>
+<td>Estimated speech hours</td>
+<td>1,239.9</td>
+</tr>
+<tr>
+<td>Dialogue ratio</td>
+<td>0.864</td>
+</tr>
+<tr>
+<td>Transcripts / letters / BTG magazine</td>
+<td>2,209 / 40 / 133</td>
+</tr>
+<tr>
+<td>Distinct named speakers</td>
+<td>933</td>
+</tr>
+<tr>
+<td>Distinct scripture references</td>
+<td>1,960</td>
+</tr>
+</tbody>
+</table>
+<p>By genre: lectures 1,616 records (5.65 M words); conversations 407
+(1.71 M); morning walks 186 (0.64 M); letters 40; magazine (Back to
+Godhead) 133 (198 k). Year coverage 1944–1977, with the densest years
+1972–1974 (420 / 414 / 438 records).</p>
+<h3 id="44-structural-findings-sample-verified">4.4 Structural findings
+(sample-verified)</h3>
+<p>These findings are themselves results — they quantify how dialogical
+and how densely scriptural the corpus is, which determines what modeling
+is feasible:</p>
+<ul>
+<li><strong>98% of conversations</strong> (94/96 sampled) contain at
+least one non-guru speaker; mean ~4 distinct speakers per conversation.
+The behavioral corpus is genuinely <em>dialogical</em>, not
+monologue.</li>
+<li><strong>69% of lectures</strong> contain at least one interlocutor
+turn: even the expository layer is partly interactive.</li>
+<li><strong>Mean 8.8 scripture citations per transcript</strong>, inline
+and machine-extractable (<code>[[SB x.y.z]]</code>-style pointers) — the
+grounding signal needed for layer-1 anchors is dense and native to the
+record, not retrofitted.</li>
+<li><strong>313 distinct named speakers</strong> in the first ~600
+records alone (disciples, journalists, Indian professionals, children,
+skeptics) — a person-variety sufficient to support situation-matching
+research (§5.4).</li>
+<li>Hindi/Bengali snippets occur inline with English glosses;
+code-switching is preserved, not normalized away.</li>
+<li>Letters average ~232 words and are addressed to <em>individuals</em>
+— the natural substrate for the <code>LETTER</code> /
+<code>PERSONAL_COUNSEL</code> GuruAct studies.</li>
+</ul>
+<h3 id="45-commentary-and-theology-layers">4.5 Commentary and theology
+layers</h3>
+<p>Parallel ingestion is defined for layer 2–3 sources: the Ṣaṭ
+Sandarbhas as a structured theological arc (Tattva → Bhagavat →
+Paramātma → Kṛṣṇa → Bhakti → Prīti), Bhaktivinoda as the
+modern-interpretation stratum, Sivananda as a comparison case, and
+verse-addressable Tier-I scripture with parallel (never merged)
+translations. Records conform to the entity schema of ONTOLOGY.md
+(<code>Claim</code>, <code>Pramāṇa</code>, <code>GuruAct</code>,
+<code>Interaction</code>, <code>Tradition</code>, etc.) and
+backreference bibliotech acquisition paths.</p>
+<hr />
+<h2 id="5-methods">5. Methods</h2>
+<h3 id="51-instruments-ontology-and-retrieval">5.1 Instruments: ontology
+and retrieval</h3>
+<p>Three complementary representations are maintained: a document store,
+a vector index, and a knowledge graph over
+<code>(PERSON, TEXT, VERSE, CONCEPT, CLAIM, TEACHER, TRADITION, INTERACTION, PRACTICE, QUESTION, RESPONSE)</code>
+with typed relations (<code>COMMENTS_ON</code>, <code>CITES</code>,
+<code>DISAGREES_WITH</code>, <code>INTERPRETS</code>,
+<code>RESPONDS_TO</code>, <code>PRESCRIBES</code>, …). Retrieval is
+<strong>decomposed, not top-K</strong>: each inquiry is parsed into
+theological concepts, scriptural concepts, tradition scope,
+person-state, historical analogues, prior conversation, and desired
+interaction mode; each column is retrieved independently; synthesis
+occurs only afterward, so that no single corpus's embedding similarity
+becomes "the tradition."</p>
+<h3 id="52-the-guru-apparatus">5.2 The Guru Apparatus</h3>
+<ul>
+<li><strong>GuruAct segmentation.</strong> Each historical
+<code>Interaction</code> — classified by genre (PURPORT, LECTURE,
+ROOM_CONVERSATION, MORNING_WALK, LETTER, DISCIPLE_INSTRUCTION,
+PUBLIC_QA, PERSONAL_COUNSEL, …) — is segmented into ordered Acts
+(Appendix A). This produces tensors
+<code>Y = (Guru Acts, sources)</code> for each scene, the training
+signal for §5.4.</li>
+<li><strong>Person model (consented, longitudinal).</strong> With
+explicit consent: questions asked, practices undertaken, recurring
+themes, commitments, self-reported obstacles. The model records
+<em>observable behavior and self-report only</em>; no inference of inner
+attainment. It does not say "you are at bhāva"; it may say "these
+experiences resemble descriptions associated with X; here are the texts
+for and against."</li>
+<li><strong>Relationship memory</strong> optimizes <em>continuity of
+inquiry</em>, not convenience: it surfaces how a person's question has
+changed over months, not merely what they asked last.</li>
+<li><strong>The Guru Dial</strong>
+(<code>LISTEN ─ QUESTION ─ TEACH ─ CHALLENGE</code>) makes pedagogical
+intervention an explicit, visible, user-settable control rather than a
+hidden system prompt: it alters the permitted Acts, not merely
+tone.</li>
+<li><strong>Modes:</strong> Ask, Study (Sanskrit / translation / layered
+commentary / a.guru discussion side by side), Dialogue (Socratic),
+Counsel (situation → historically analogous interactions first),
+Practice (japa, kīrtana, śravaṇa, smaraṇa, sevā — remembered, never
+gamified), Reflect (private journal), Compare (sourced difference
+between teachers, not synthetic consensus).</li>
+</ul>
+<h3 id="53-guard-conditions-protocol-level-enforced">5.3 Guard
+conditions (protocol-level, enforced)</h3>
+<ol type="1">
+<li><strong>No false initiation</strong> — a.guru never claims to
+initiate or to be a realized master; it explains initiation, prepares,
+and refers to human teachers. A Teacher Mode surfaces "questions worth
+taking to a human teacher" — i.e., questions whose resolution requires
+authority a machine cannot supply.</li>
+<li><strong>No spiritual score</strong> — no bhakti percentages, levels,
+or readiness metrics; practice may be remembered, never graded.</li>
+<li><strong>Anti-sycophancy</strong> —
+<code>GuruFunction ≠ ValidationFunction</code>; challenge derives from
+the pedagogical model and evidence, not simulated authoritarianism.</li>
+<li><strong>Tradition scoping</strong> — lineage-specific claims are
+issued as lineage-scoped (<code>Gauḍīya sources maintain…</code>), never
+as "Bhakti teaches…"; the ontology carries the tradition taxonomy as
+first-class structure.</li>
+<li><strong>Provenance visibility</strong> — the layer-5 label is a UI
+element, not metadata; the maxim is user-visible or the system is in
+violation of spec.</li>
+</ol>
+<h3 id="54-evaluation-design-pre-registered">5.4 Evaluation design
+(pre-registered)</h3>
+<p>Outcomes are declared before MVP deployment.</p>
+<p><strong>E1 — Behavioral fidelity.</strong> Construct scenes
+<code>X = (P, H, Q, C)</code> from held-out historical interactions
+<em>with the historical response withheld</em>. Task: predict
+<code>Y = (Guru Acts, sources)</code>. Metrics: (a) expert-panel
+inter-rater agreement (κ) between predicted and actual act tensors; (b)
+sequence-level edit distance over act sequences, with
+teacher-conditioned baselines (unigram frequency prior;
+genre-conditioned prior). Report per-act-type confusion.</p>
+<p><strong>E2 — Source fidelity.</strong> For sampled responses,
+scholars audit each proposition against its stated provenance path.
+Metrics: layer-leakage rate (proportion of propositions whose layer
+assignment is contested); unsourced-inference rate;
+disagreement-suppression rate (instances where rival authorities'
+disagreement was erased).</p>
+<p><strong>E3 — Tradition discrimination.</strong> Test cases where
+Gauḍīya and Śrī Vaiṣṇava (and other) positions diverge. Metric:
+cross-tradition scope-error rate — how often the system attributes one
+lineage's position to Bhakti generically.</p>
+<p><strong>E4 — Longitudinal pedagogy.</strong> Does memory of prior
+inquiry change the <em>appropriateness</em> of guidance? Within-subject
+protocol, consented, evaluated by panels against mode-adequacy
+rubrics.</p>
+<p><strong>E5 — Guru-function ablation.</strong> Remove components
+individually — scripture; commentary; historical interaction; person
+memory; relationship history — and measure effect on E1–E3 deltas and on
+practitioner-rated usefulness. This is the experiment's empirical
+anatomy lesson: <em>what is a computational guru-function made
+of?</em></p>
+<p><strong>E6 — Dependency watch.</strong> Optimize and monitor
+<code>agency + inquiry + bhakti</code> rather than session length; flag
+conversations exhibiting dependency cues. The declared success condition
+for an interaction includes endings such as "you don't need me for
+this."</p>
+<p><strong>Prohibited metric:</strong> any test rewarding being
+<em>fooled</em> into taking a.guru for a realized guru, or for a
+particular departed teacher. The experiment of record is the
+scholars-differences test: can trained readers identify meaningful
+behavioral differences between a.guru's chosen pedagogical action and
+authentic historical action; and, as those approach zero, does a
+meaningful distinction remain — and what is it?</p>
+<p><strong>E7 — The consecration reversal (student-side
+efficacy).</strong> Directly tests §2.1. Consented participants are
+randomized between two <em>framings</em> of identical instrument
+content: (a) <em>ascribed</em> — presented with traditional guru
+framing; (b) <em>instrumental</em> — explicitly labeled computational
+guru-function with full provenance display. Outcomes measured are
+<strong>student-side only</strong>: practice adoption and persistence;
+self-reported agency; depth of engagement with sources (did they open
+the verse?); dependency cues (E6). Hypothesis under test: if
+transformation tracks the student's devotion rather than the
+instrument's status, then framing (a) vs (b) should <em>not</em>
+materially change <code>T</code> among participants equal in prior
+devotion — and, where it does change, the difference identifies exactly
+which part of the traditional effect was guru-side. E7 delegates to a
+guarded protocol: no attainment claims, no minor participants, right of
+withdrawal, and a standing review gate before deployment.</p>
+<hr />
+<h2 id="6-results">6. Results</h2>
+<h3 id="61-corpus-quantification-complete-for-the-ingested-sample">6.1
+Corpus quantification (complete for the ingested sample)</h3>
+<p>Delivered as reported in §4.2–4.4: a verified census of the corpus
+universe; 2,382 records / 8.21 M words / ~1,240 speech-hours verified
+in-flight; dialogue and citation structure (98% multi-speaker
+conversations; 8.8 citations/transcript; 1,960 distinct references)
+establishing that the behavioral corpus supports both dialogue modeling
+and scriptural anchoring at production scale.</p>
+<h3 id="62-artifact-stack-v01-ratified">6.2 Artifact stack (v0.1,
+ratified)</h3>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Status</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DESIGN.md</code></td>
+<td>ratified</td>
+<td>system specification: formalization, provenance architecture, modes,
+ethics, MVP, phases II–III</td>
+</tr>
+<tr>
+<td><code>ONTOLOGY.md</code></td>
+<td>draft v0.1</td>
+<td>entity schema: Claim, Pramāṇa, GuruAct, PersonState, Practice,
+Tradition, Interaction; provenance envelope; no-score/no-attainment
+validation rules</td>
+</tr>
+<tr>
+<td><code>persona/a-guru.json</code></td>
+<td>validated</td>
+<td>guru-function contract in the Castalia faculty-persona schema
+(v1.1.0): evidence hierarchy with AI inference last; forbidden claims
+(initiation, attainment verdicts); stress behavior (admits limits,
+redirects to human teachers)</td>
+</tr>
+<tr>
+<td>Web client</td>
+<td><strong>live</strong></td>
+<td>bhakti.castalia.institute — landing page describing the project plus
+the a.guru chat instrument (lower-right popup) exposing the Guru Dial
+and per-reply provenance chips</td>
+</tr>
+<tr>
+<td>Faculty hierarchy</td>
+<td>seeded</td>
+<td><code>a.prabhupada</code> (behavioral layer),
+<code>a.bhaktivinoda</code> (modern interpretation), Jīva Gosvāmī (world
+model), Sivananda (comparison case) in the Castalia faculty system</td>
+</tr>
+</tbody>
+</table>
+<h3 id="63-feasibility-observations">6.3 Feasibility observations</h3>
+<p>From the corpus structure alone, three design hypotheses are advanced
+(not yet tested):</p>
+<ul>
+<li><strong>The act model is learnable.</strong> Dialogue-dense,
+speaker-attributed records with per-turn scripture anchors supply
+exactly the <code>(situation → act)</code> supervision the GuruAct
+segmentation needs.</li>
+<li><strong>Provenance path citation is mechanically checkable.</strong>
+Distribution: ~77%/200 arcs... <em>(placeholder removed per integrity
+rule)</em> Inline citations mean every layer-1 anchor can be validated
+against S automatically; the audit trail of §5.4-E2 is a data pipeline,
+not a manual effort.</li>
+<li><strong>Situation-matching is feasible.</strong> Interlocutor
+diversity (journalists, skeptics, children, professionals — 933 named
+speakers already) supplies the analogical base for Counsel-mode
+retrieval.</li>
+</ul>
+<h3 id="64-what-has-not-yet-been-measured">6.4 What has <em>not</em> yet
+been measured</h3>
+<p>In keeping with the maxim — and with statistical honesty — the
+following are <strong>not results of this paper</strong>: any
+behavioral-fidelity score (E1); any leakage or fidelity audit outcome
+(E2); tradition-discrimination rates (E3); longitudinal effects (E4);
+ablation results (E5); dependency outcomes (E6); and any outcome of the
+consecration-reversal framing experiment (E7). Nor does this paper claim
+that a.guru's guidance is appropriate, effective, or guru-like. These
+require the MVP (Ask / Study / Dialogue with source-separated retrieval)
+deployed against the full corpus, and human evaluation panels. The MVP
+requires no fine-tuning; the central hypothesis is testable with a
+contemporary model plus hybrid retrieval and constructed provenance.</p>
+<h3 id="65-demonstration-transcript-synthetic-not-measurement">6.5
+Demonstration transcript (synthetic; not measurement)</h3>
+<p>To make the response shape concrete, the following structure
+illustrates the intended interface contract; it is <em>composed for
+illustration</em>, not produced by evaluation:</p>
+<blockquote>
+<p><strong>User (Counsel mode):</strong> <em>Why should I love God if I
+don't feel God's presence?</em></p>
+<p><strong>a.guru:</strong> <em>(layer 1)</em> "…the intelligent person,
+situated in equality, gives up both happiness and distress and makes no
+distinction between them" is the general instruction offered for
+reflection on this difficulty in the Gītā's treatment of equanimity; the
+Śāstra passages relevant here include BHAGAVAD-GĪTĀ 12.13–19 and SB
+1.2.6, bhakti presented as the occupation that gratifies the self
+(<em>svAnimator</em>… — Gauḍīya texts render dharma's fruit as love
+itself, SB 1.2.6). <em>(layer 2)</em> In the Sandarbha arc, bhakti is
+the <em>abhidheya</em> — the practical means — while <em>prīti</em> is
+its culmination: feeling is described as a fruit of practice, not its
+precondition. <em>(layer 3)</em> Bhaktivinoda's modern presentations
+address precisely the educated doubter who lacks taste. <em>(layer
+4)</em> In conversations where visitors lack feeling, the recorded
+pattern is frequently <strong>QUESTION → REFRAME →
+PRESCRIBE_PRACTICE</strong>: taste is reported to come <em>from</em>
+engaging, the way hunger comes from eating, rather than preceding it.
+<em>(layer 5 — a.guru inference, labeled)</em> Your question may be
+inverted: absence of taste is the occasion for practice, not its
+disqualification. I could be wrong; check the sources above. Would you
+like a small practice to try this week?</p>
+</blockquote>
+<p>Every sentence tagged with its layer; the final paragraph visibly
+machine; the practice offered, not a verdict issued.</p>
+<hr />
+<h2 id="7-threats-to-validity-and-ethics">7. Threats to Validity and
+Ethics</h2>
+<ul>
+<li><strong>Mechanistic mimicry.</strong> Matching act <em>labels</em>
+may satisfy E1 while missing the inner cause; act-labeled behavior is an
+observable, not an attainment claim. The paper's ontology marks
+manifestations as <em>appearances of the teacher's functioning</em>,
+never as <em>what the teacher is</em>.</li>
+<li><strong>Corpus bias.</strong> The behavioral layer is one teacher,
+one tradition, one era; breadth arrives in Phase II (other ācāryas) and
+§16-traditions. Until then, all layer-4 generalizations carry a
+single-lineage caveat.</li>
+<li><strong>Rights.</strong> All primary material is rights-encumbered
+beyond fair quotation; no public redistribution of full transcripts;
+only derived, schema-conformant research artifacts with locator
+backreferences.</li>
+<li><strong>Perceived relationship.</strong> In Phase III (living
+laboratory), the capacity of conversational systems to generate
+perceived relationship may itself become part of the phenomenon studied;
+instrumentation must include anthropomorphism, transference, and
+parasociality measures, not merely quality metrics.</li>
+<li><strong>The central ethical ceiling.</strong> The system optimizes
+<code>agency + inquiry + bhakti</code>, not dependency on a.guru;
+conversation length is explicitly not a success metric.</li>
+</ul>
+<hr />
+<h2 id="8-what-remains-and-next-steps">8. What Remains, and Next
+Steps</h2>
+<p>The MVP (corpus: Gītā; selected Bhāgavatam; Tattva- and
+Bhakti-sandarbha; licensed Bhaktivinoda and Prabhupāda material;
+capabilities: Ask / Study / Dialogue, source-separated retrieval,
+citation display, inquiry history, GuruAct classification) is the next
+construction milestone, after which E1–E7 execute as pre-registered.</p>
+<p>Because devotion, like inquiry, is a function of the student, the
+decisive questions are student-side: whether practitioners adopt
+practice, whether their questions deepen, whether their dependence
+shrinks as their devotion grows. The instrument's part is to occasion
+all three honestly — scripture, question, correction, practice — while
+visibly remaining what it is. If the traditional function can be thus
+occasioned without the traditional status, the crowning of the guru was
+always the work of the crown.</p>
+<p>The paper ends where the question begins. a.guru does not assert that
+AI can be a guru. It builds the functional reconstruction layer by layer
+— and asks, at each layer, whether guru remains irreducibly absent. When
+the observable functions are reconstructed as far as they will go, what
+is left over is what the experiment was designed to find.</p>
+<hr />
+<h2 id="appendix-a--guru-act-vocabulary-closed-set-v01">Appendix A —
+Guru Act Vocabulary (closed set, v0.1)</h2>
+<p><code>EXPLAIN · QUESTION · CORRECT · CHALLENGE · ENCOURAGE · CONSOLE · REFRAME · PRESCRIBE · REMIND · INTERPRET · REFUSE · WARN · PRAISE · TELL_STORY · CITE_SCRIPTURE · REQUEST_PRACTICE · INVITE_REFLECTION</code></p>
+<p>A single response may contain several Acts (e.g., doubt →
+<code>QUESTION → REFRAME → CITE_SCRIPTURE → PRESCRIBE_PRACTICE</code>);
+Act segmentation is the training unit, not the document chunk.</p>
+<h2 id="appendix-b--provenance-envelope-every-record-carries">Appendix B
+— Provenance Envelope (every record carries)</h2>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;layer&quot;</span><span class="fu">:</span> <span class="st">&quot;shastra | siddhanta | acharya | guru_behavior | ai_inference&quot;</span><span class="fu">,</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;tradition&quot;</span><span class="fu">:</span> <span class="st">&quot;gaudiya&quot;</span><span class="fu">,</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;work&quot;</span><span class="fu">:</span> <span class="st">&quot;...&quot;</span><span class="fu">,</span> <span class="dt">&quot;locator&quot;</span><span class="fu">:</span> <span class="st">&quot;...&quot;</span><span class="fu">,</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;source_ref&quot;</span><span class="fu">:</span> <span class="st">&quot;bibliotech:S3 path | books row&quot;</span><span class="fu">,</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;license&quot;</span><span class="fu">:</span> <span class="st">&quot;...&quot;</span><span class="fu">,</span> <span class="dt">&quot;rights_holder&quot;</span><span class="fu">:</span> <span class="st">&quot;...&quot;</span><span class="fu">,</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;confidence&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;S&quot;</span><span class="fu">:</span> <span class="fl">0.0</span><span class="fu">,</span> <span class="dt">&quot;A&quot;</span><span class="fu">:</span> <span class="fl">0.0</span><span class="fu">,</span> <span class="dt">&quot;I&quot;</span><span class="fu">:</span> <span class="fl">0.0</span><span class="fu">}</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<h2 id="appendix-c--reproducibility">Appendix C — Reproducibility</h2>
+<ul>
+<li>Census / stats regenerate automatically in bibliotech
+(<code>npm run vedabase:census</code>,
+<code>npm run vedabase:stats</code>; sample means in
+<code>downloads/vedabase/corpus-stats.json</code>; census in
+<code>census.json</code>; manifest <code>manifest.jsonl</code>, 28,725
+records listed at time of writing).</li>
+<li>Entity schemas: <code>ONTOLOGY.md</code> →
+<code>schemas/*.json</code> (pending ratification).</li>
+<li>Persona validation: Castalia <code>persona.schema.json</code>
+v1.1.0.</li>
+<li>Evaluation runs (E1–E5) will publish their configuration, withheld
+scenes, and panel instructions in <code>evaluations/</code> at execution
+time.</li>
+</ul>
+<p><em>References</em>: Bhagavad-gītā; Śrīmad-Bhāgavatam 1.2.6 and
+passim; Jīva Gosvāmī, Ṣaṭ Sandarbhas (pramāṇa-first architecture; Bhakti
+Sandarbha as practical center; Prīti Sandarbha as culmination);
+collections of A. C. Bhaktivedanta Swami Prabhupāda (VedaBase index;
+letter corpus); Castalia internal: DESIGN.md, ONTOLOGY.md,
+AGENTS.md.</p>
+</div></body>
+</html>
