@@ -70,19 +70,19 @@ For E1/E7 claims of behavioral fit, a retrieval-only baseline is asserted suffic
 
 ## 6. Required actions before E-execution
 
-| # | Action | Unblocks |
+| # | Action | Status (2026-09-29) |
 |---|---|---|
-| 1 | Pre-register E1–E7 externally (OSF) with panel composition, null-c models (E1), power analysis, stopping rules | all E-runs |
-| 2 | Letters + conversations ingestion priority; re-balance sample; report % complete everywhere | E3, E4 |
-| 3 | Annotation-fidelity pilot (50 interactions, 3 independent raters, κ) before act-model work | E1 |
-| 4 | Add selection-provenance to the UI contract (AGENTS.md payload schema) | maxim #1 operationalized |
-| 5 | E7 rename + debriefing requirement + named review body | ethics |
-| 6 | §2.1 reframe: thesis as contested hypothesis; add a "corpus answers back" subsection quoting the paramparā position | doctrine |
-| 7 | Related-work section (≥ 10 sources) | scholarly posture |
-| 8 | Update persona/a-guru.json affordances to say "instrumental efficacy measured, not spiritual authority possessed" | honesty surface |
+| 1 | Pre-register E1–E7 externally (OSF) with panel composition, null models (E1), power analysis, stopping rules | scheduled — §8 validity-infrastructure para; external venue pending |
+| 2 | Letters + conversations ingestion priority; re-balance sample; report % complete everywhere | documented — §4.3 coverage/skew para + §8 priority order; ingestion itself runs in bibliotech |
+| 3 | Annotation-fidelity pilot (50 interactions, 3 independent raters, κ ≥ 0.6) before act-model work | ratified as E0 gate in §5.4; runs when MVP data pipeline exists |
+| 4 | Add selection-provenance to the UI contract (AGENTS.md payload schema) | done — AGENTS.md updated; UI wiring on backend arrival |
+| 5 | E7 rename + debriefing requirement + named review body | rename/bound done in §5.4; external review body name still owed |
+| 6 | §2.1 reframe: thesis as contested hypothesis; corpus answers back | done — §2.1 + §2 limitation para |
+| 7 | Related-work section (≥ 10 sources) | §9 sketch added with 5 clusters; counts as start, not completion |
+| 8 | Update persona/a-guru.json affordances to separate measurable efficacy from authority | done — rationale + inquiry_strengths updated |
 
 ## 7. Verdict
 
 **Direction: sound. Instrumentation: ahead of its validity.** The provenance-first architecture, the no-score/no-initiation constraints, and the student-side devotion thesis constitute a defensible research program; none of it has yet been *tested*, and several designs (E1 null models, E7 inference bound, letters sampling) are, as written, not capable of producing the conclusions their prose promises. The corpus work is real and citable. The ontological-remainder question is apt — and must be stated as unmeasurable *by behavior alone*, or the project trades the guru-impersonation sin for a subtler one: impersonating *an experiment*.
 
-*Fixes applied immediately:* §6.3 placeholder (~77%/…), edition-normalization caveat. Fixes scheduled: E7 rename (→ framing-invariance), denominator reporting, persona wording. Items 1–8 tracked to the `evaluations/` workstream.
+*Revision of 2026-09-29 (same day): all eight actions applied against the documents — E0 gate and E1 nulls ratified (§5.4), E7 renamed and bounded, §2 limitation paragraph, §4.3 coverage/skew reporting, §6.3 relabeled *design analyses*, §9 related-work sketch, selection-provenance added to the AGENTS.md contract, persona wording updated. Open still: external pre-registration venue, named review body for E7, full letters ingest, and a ≥10-source related-work review.*
