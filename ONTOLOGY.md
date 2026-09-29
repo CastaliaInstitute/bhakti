@@ -152,7 +152,10 @@ The atomic unit of pedagogy — what the teacher appears to be *doing* (DESIGN.m
 
 > EXPLAIN · QUESTION · CORRECT · CHALLENGE · ENCOURAGE · CONSOLE · REFRAME · PRESCRIBE · REMIND · INTERPRET · REFUSE · WARN · PRAISE · TELL_STORY · CITE_SCRIPTURE · REQUEST_PRACTICE · INVITE_REFLECTION
 
-Estimation of observed frequencies is precise: the label applies to an observable discourse move, not an inner cause.
+**Overlap alert (v0.2).** Pairs with known scoring ambiguity: `EXPLAIN/INTERPRET` (openly exposition that ascribes doctrine), `WARN/CHALLENGE` (valence contrast is not a stable rater criterion). The E0 annotation-fidelity pilot (gate: per-act κ ≥ 0.6, three raters, one tradition-literate) must pass **before** any act-model training; persistent-overlap pairs go to the adjudication queue for merge or redefinition. Non-verbal acts (silence duration, positioning, gifts, *darśana*) are out of scope for v0.1 and tracked as a future extension rather than silently dropped.
+
+Estimation of observed frequencies is precise: the label applies to an observable discourse move, not an inner cause. And a provenance note the schema enforces: a GuruAct's *label* is itself an AI-generated annotation until a human rater ratifies it — ratified-by fields on the Act row record who (or what) confirmed each segmentation, so the five-layer provenance claim survives at the annotation layer too.
+
 
 ---
 
