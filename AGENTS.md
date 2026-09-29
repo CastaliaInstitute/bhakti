@@ -17,7 +17,13 @@ POST { "mode": "dialogue|ask|counsel|...", "dial": "listen|question|teach|challe
 200  { "response": "…", "provenance": [ {"layer": "shastra|siddhanta|acharya|guru_behavior|ai_inference", "work": "…", "locator": "…"}, ... ] }
 ```
 
-Until an engine exists the widget degrades to an honest "not connected" message — never a fake guru answer.
+Two provenance kinds are required, not one (per REVIEW.md §3.5): **assertion
+provenance** (whose claim this is — the `layer`/`work`/`locator` entries above)
+and **selection provenance** (why these passages surfaced rather than others,
+which is also the machine's doing). Add a `selection` field to provenance
+entries as soon as the backend exists; the UI will render both. Until an
+engine exists the widget degrades to an honest "not connected" message —
+never a fake guru answer.
 
 ## Hard rules of this project (from DESIGN.md)
 
