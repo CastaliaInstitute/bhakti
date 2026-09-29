@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>a.guru — Can an AI be a guru? | Bhakti. A Castalia Institute inquiry</title>
+<meta name="description" content="a.guru is an experimental computational guru-function: a provenance-aware laboratory for bhakti, guidance, and the guru–disciple relationship. A Castalia Institute research project." />
+<meta property="og:title" content="a.guru — What makes a guru?" />
+<meta property="og:description" content="An experiment in devotion, intelligence, and the nature of spiritual guidance. Ask a question. Examine the sources. Challenge the answer." />
+<meta property="og:url" content="https://bhakti.castalia.institute/" />
+<meta name="twitter:card" content="summary" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%23f5efe2'/%3E%3Ccircle cx='50' cy='50' r='44' fill='none' stroke='%23b95f1a' stroke-width='3'/%3E%3Ctext x='50' y='66' font-size='44' text-anchor='middle' fill='%231a1330' font-family='Georgia,serif'%3E(%3C/text%3E%3Ccircle cx='50' cy='50' r='9' fill='%23b95f1a'/%3E%3C/svg%3E" />
+<style>
+  :root {
+    --ink: #1a1330;
+    --paper: #f7f2e7;
+    --paper-deep: #efe7d5;
+    --saffron: #c96f1e;
+    --saffron-deep: #a05512;
+    --muted: #75695a;
+    --line: rgba(26,19,48,.14);
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--paper) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='none' stroke='%231a1330' stroke-opacity='0.045' stroke-width='1'%3E%3Cpath d='M20 30h100M20 44h100M20 58h72M20 72h100M20 86h100M20 100h72'/%3E%3C/g%3E%3C/svg%3E");
+    color: var(--ink);
+    font-family: var(--serif);
+    line-height: 1.7;
+  }
+  .wrap { max-width: 44rem; margin: 0 auto; padding: 4.5rem 1.5rem 5rem; }
+
+  header.masthead { text-align: center; margin-bottom: 3.5rem; }
+  .seal {
+    width: 74px; height: 74px; margin: 0 auto 1.4rem;
+    border-radius: 50%;
+    border: 2.5px solid var(--saffron-deep);
+    background: var(--paper-deep);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2rem; color: var(--saffron-deep);
+    font-family: var(--serif);
+    box-shadow: 0 4px 18px rgba(160,85,18,.18);
+  }
+  h1.wordmark {
+    font-size: clamp(2.6rem, 7vw, 3.6rem);
+    font-weight: 600; letter-spacing: -.01em;
+    margin: 0 0 .4rem;
+  }
+  h1.wordmark .dot { color: var(--saffron-deep); }
+  .tagline {
+    font-style: italic; color: var(--muted);
+    font-size: 1.15rem; margin-bottom: .8rem;
+  }
+  .kicker {
+    font-family: var(--sans);
+    text-transform: uppercase; letter-spacing: .18em;
+    font-size: .68rem; color: var(--muted); margin-bottom: 2.6rem;
+  }
+
+  h2 {
+    font-family: var(--sans);
+    font-size: .82rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: .14em;
+    color: var(--saffron-deep);
+    margin: 0 0 .9rem;
+  }
+  section { margin-bottom: 3rem; }
+  p { margin: 0 0 1rem; font-size: 1.05rem; }
+  .lede {
+    font-size: 1.25rem; font-style: italic; color: var(--ink);
+    border-left: 3px solid var(--saffron);
+    padding-left: 1.1rem; margin: 0 0 2rem;
+  }
+  .steps { font-size: 1.1rem; font-style: italic; color: var(--muted); line-height: 2; }
+  em { font-style: italic; }
+  .maxim {
+    text-align: center; font-size: 1.15rem; font-style: italic;
+    padding: 1.6rem 1rem;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    margin: 2.5rem 0;
+  }
+
+  .layers { list-style: none; padding: 0; margin: 1.2rem 0 0; }
+  .layers li {
+    font-family: var(--sans); font-size: .95rem;
+    padding: .55rem .9rem; margin-bottom: .45rem;
+    border: 1px solid var(--line); border-left: 4px solid var(--saffron);
+    background: rgba(255,255,255,.55);
+    display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+  }
+  .layers b { font-weight: 600; }
+  .layers .note { color: var(--muted); font-size: .8rem; text-align: right; }
+  .layers li.machine { border-left-color: var(--ink); background: rgba(26,19,48,.05); }
+  .layers li.machine .note { color: var(--ink); font-weight: 600; }
+
+  .modes { display: grid; grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr)); gap: .5rem; margin-top: 1.2rem; }
+  .modes span {
+    font-family: var(--sans); font-size: .85rem;
+    border: 1px solid var(--line); border-radius: .35rem;
+    padding: .5rem .75rem; background: rgba(255,255,255,.55);
+    text-align: center;
+  }
+
+  dl.fine { margin: 1rem 0 0; }
+  dl.fine dt { font-family: var(--sans); font-size: .78rem; text-transform: uppercase; letter-spacing: .1em; color: var(--saffron-deep); margin-top: .9rem; font-weight: 600; }
+  dl.fine dd { margin: .15rem 0 0; font-size: .98rem; color: var(--ink); }
+
+  footer {
+    text-align: center; font-family: var(--sans);
+    font-size: .8rem; color: var(--muted);
+    border-top: 1px solid var(--line);
+    padding-top: 1.4rem; margin-top: 3rem;
+  }
+  footer a, a { color: var(--saffron-deep); text-decoration: none; border-bottom: 1px dotted var(--saffron-deep); }
+  .pranam { text-align: center; font-style: italic; color: var(--muted); margin: 2.5rem 0 0; font-size: .95rem; }
+  .smallprint { font-size: .72rem; }
+
+  /* ── Chat widget: lower-right popup ─────────────────────── */
+  .aguru-launch {
+    position: fixed; right: 1.4rem; bottom: 1.4rem; z-index: 60;
+    width: 3.7rem; height: 3.7rem; border-radius: 50%;
+    border: 2px solid var(--saffron-deep);
+    background: var(--saffron); color: #fff;
+    font-size: 1.5rem; font-family: var(--serif);
+    cursor: pointer;
+    box-shadow: 0 8px 26px rgba(160,85,18,.4);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .aguru-launch:hover { transform: translateY(-2px) scale(1.04); }
+  .aguru-launch .pulse {
+    position: absolute; inset: -5px; border-radius: 50%;
+    border: 2px solid rgba(201,111,30,.5);
+    animation: pulse 2.6s ease-out infinite;
+  }
+  @keyframes pulse { 0% { transform: scale(.9); opacity: 1; } 100% { transform: scale(1.35); opacity: 0; } }
+
+  .aguru-panel {
+    position: fixed; right: 1.4rem; bottom: 5.6rem; z-index: 70;
+    width: min(24rem, calc(100vw - 2rem));
+    max-height: min(37rem, calc(100vh - 7rem));
+    display: none; flex-direction: column;
+    background: var(--paper);
+    border: 1px solid var(--ink);
+    border-radius: .7rem;
+    box-shadow: 0 18px 50px rgba(26,19,48,.35);
+    overflow: hidden;
+  }
+  .aguru-panel.open { display: flex; animation: rise .18s ease-out; }
+  @keyframes rise { from { transform: translateY(8px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+  .aguru-head {
+    display: flex; align-items: center; gap: .6rem;
+    background: var(--ink); color: var(--paper);
+    padding: .7rem .9rem;
+  }
+  .aguru-head .sigil { color: var(--saffron); font-family: var(--serif); font-size: 1.15rem; }
+  .aguru-head .who { flex: 1; line-height: 1.25; }
+  .aguru-head .who { font-family: var(--serif); font-size: .98rem; }
+  .aguru-head .sub { font-size: .64rem; text-transform: uppercase; letter-spacing: .12em; opacity: .65; font-family: var(--sans); }
+  .aguru-close { background: none; border: 0; color: var(--paper); opacity: .7; font-size: 1rem; cursor: pointer; padding: .2rem; }
+  .aguru-close:hover { opacity: 1; }
+
+  .aguru-log {
+    flex: 1; overflow-y: auto;
+    padding: .9rem; display: flex; flex-direction: column; gap: .55rem;
+    background: var(--paper-deep);
+  }
+  .msg { max-width: 92%; padding: .55rem .8rem; border-radius: .55rem; font-size: .92rem; line-height: 1.5; white-space: pre-wrap; }
+  .msg.user { align-self: flex-end; background: var(--ink); color: var(--paper); border-bottom-right-radius: .15rem; }
+  .msg.bot { align-self: flex-start; background: #fff; border: 1px solid var(--line); border-bottom-left-radius: .15rem; }
+  .msg.err { align-self: flex-start; background: #f4e0d4; border: 1px solid var(--saffron-deep); font-size: .84rem; }
+  .msg .provenance {
+    display: block; margin-top: .5rem; padding-top: .45rem;
+    border-top: 1px dashed rgba(26,19,48,.2);
+    font-family: var(--sans); font-size: .68rem; color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .aguru-dial {
+    display: flex; align-items: center; gap: .3rem;
+    padding: .45rem .8rem .2rem;
+    font-family: var(--sans); font-size: .64rem;
+    color: var(--muted);
+    background: var(--paper);
+  }
+  .aguru-dial input[type=range] { flex: 1; accent-color: var(--saffron-deep); }
+  .aguru-dial .stop { min-width: 4.6rem; text-align: center; font-weight: 600; color: var(--saffron-deep); text-transform: uppercase; letter-spacing: .08em; }
+
+  .aguru-input { display: flex; border-top: 1px solid var(--line); background: var(--paper); }
+  .aguru-input textarea {
+    flex: 1; border: 0; background: transparent; resize: none;
+    font-family: var(--serif); font-size: .95rem; padding: .7rem .8rem;
+    outline: none; max-height: 6rem; color: var(--ink);
+  }
+  .aguru-input button {
+    border: 0; background: var(--saffron-deep); color: #fff;
+    padding: 0 .95rem; font-size: 1.05rem; cursor: pointer;
+  }
+  .aguru-input button:hover { background: var(--saffron); }
+  .aguru-foot {
+    padding: .35rem .8rem .55rem;
+    font-family: var(--sans); font-size: .62rem; color: var(--muted);
+    text-align: center; background: var(--paper);
+  }
+  @media (prefers-reduced-motion: reduce) { .aguru-launch .pulse { animation: none; display: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="seal" role="presentation">(•)</div>
+    <h1 class="wordmark">a.guru<span class="dot">.</span></h1>
+    <p class="tagline">What makes a guru?</p>
+    <div class="kicker">bhakti · a research inquiry of the Castalia Institute</div>
+    <p class="lede">
+      For thousands of years, the traditions of bhakti have transmitted knowledge
+      through relationships between teachers and students. Today we possess something
+      unprecedented: scripture, centuries of commentary, and thousands of recorded
+      interactions between spiritual teachers and the people who questioned them.
+      What happens when a machine can read all of them?
+    </p>
+  </header>
+
+  <section>
+    <h2>The experiment</h2>
+    <p>
+      a.guru is <em>not</em> a chatbot imitating a holy man, and it does not claim
+      that an AI is spiritually realized. It is an <strong>experimental computational
+      guru-function</strong>: a laboratory for studying which parts of the guru's
+      work — teaching, questioning, correcting, consoling, prescribing practice —
+      can be represented in a machine, and which, if any, cannot.
+    </p>
+    <p>
+      The question is not <em>can AI talk about bhakti</em> (that is now trivial),
+      and not <em>can AI impersonate Prabhupāda</em> (technically easy, philosophically
+      uninteresting). The question is:
+    </p>
+    <p style="text-align:center; font-style:italic;">
+      If we progressively reconstruct the observable functions of guru in a machine,
+      at what point — if any — does guru remain irreducibly absent?
+    </p>
+  </section>
+
+  <section>
+    <h2>Never hide the boundary</h2>
+    <p>
+      Most systems retrieve a few passages and produce a seamless answer. a.guru
+      deliberately resists seamlessness. Every response instead shows its ancestry
+      through distinct epistemic layers:
+    </p>
+    <ul class="layers">
+      <li><span><b>Śāstra</b> · scripture</span><span class="note">Gītā · Bhāgavatam · Sandarbha sources</span></li>
+      <li><span><b>Siddhānta</b> · systematic theology</span><span class="note">Jīva Gosvāmī's Ṣaṭ Sandarbhas</span></li>
+      <li><span><b>Ācārya</b> · teachers' commentary</span><span class="note">Bhaktivinoda · Bhaktisiddhānta · Prabhupāda</span></li>
+      <li><span><b>Guru behavior</b> · what teachers actually did</span><span class="note">3,703 transcripts · 6,587 letters</span></li>
+      <li class="machine"><span><b>a.guru</b> · machine inference</span><span class="note">always labeled — never disguised as tradition</span></li>
+    </ul>
+    <p class="smallprint" style="margin-top:.8rem; color: var(--muted);">
+      "The tradition says…" and "the machine infers…" are kept visibly apart. That
+      separation is the instrument: a limitation of artificial intelligence, turned
+      into the central philosophical tool of the project.
+    </p>
+  </section>
+
+  <section>
+    <h2>What a.guru does</h2>
+    <div class="modes">
+      <span>Ask</span><span>Study</span><span>Dialogue</span><span>Counsel</span><span>Practice</span><span>Reflect</span><span>Compare</span>
+    </div>
+    <p style="margin-top:.9rem;">
+      It answers from the sources; it studies passages with commentary attached; it
+      asks questions instead of always answering; it searches historically analogous
+      guru–disciple conversations before advising; and it supports practice — japa,
+      kīrtana, reading, remembrance — without streaks, points, or spiritual scores.
+      It can challenge, since <em>a guru is not a validation machine</em>. And it can
+      say: <em>I don't know… these teachers disagree… that is my inference, not a
+      traditional teaching.</em>
+    </p>
+    <p>
+      a.guru will never say "I initiate you" or "I am your realized spiritual
+      master." It explains, prepares, and points toward human teachers — the
+      boundary is kept deliberately, because the distance between a.guru and guru
+      is what the whole experiment is designed to measure.
+    </p>
+  </section>
+
+  <section>
+    <h2>The documents</h2>
+    <dl class="fine">
+      <dt><a href="https://github.com/CastaliaInstitute/bhakti/blob/main/DESIGN.md">DESIGN.md</a></dt>
+      <dd>a.guru v0.1 design specification — the research question, the provenance architecture, modes of interaction, research instrumentation, and the MVP.</dd>
+      <dt><a href="https://github.com/CastaliaInstitute/bhakti/blob/main/ONTOLOGY.md">ONTOLOGY.md</a></dt>
+      <dd>The data schema: Claim, Pramāṇa, GuruAct, PersonState, Practice, Tradition, Interaction — how we ingest the Prabhupāda and Jīva corpora without merely making another vector-search chatbot.</dd>
+      <dt><a href="https://github.com/CastaliaInstitute/bhakti">Repository</a></dt>
+      <dd>bhakti@GitHub — source, issues, and the conversation around the inquiry.</dd>
+    </dl>
+  </section>
+
+  <div class="maxim">
+    Ask a question.<br>
+    Examine the sources.<br>
+    Challenge the answer.<br>
+    Practice.<br>
+    Return.
+  </div>
+
+  <p class="pranam">a guru · artificial guru · a question about guru</p>
+
+  <footer>
+    <a href="https://castalia.institute/">Castalia Institute</a> — where inquiry is devotion<br>
+    <span class="smallprint">bhakti.castalia.institute · research prototype v0.1 · the chat at lower right is an instrument, not a guru</span>
+  </footer>
+
+</div>
+
+<!-- a.guru chat widget -->
+<button class="aguru-launch" id="aguruLaunch" aria-label="Open a.guru chat" aria-expanded="false">
+  <span class="pulse" aria-hidden="true"></span>(•)
+</button>
+
+<aside class="aguru-panel" id="aguruPanel" role="dialog" aria-label="a.guru conversation">
+  <div class="aguru-head">
+    <span class="sigil" aria-hidden="true">(•)</span>
+    <span class="who">
+      <span class="who-name">a.guru</span><br>
+      <span class="who-sub">computational guru-function · v0.1</span>
+    </span>
+    <button class="aguru-close" id="aguruClose" aria-label="Close a.guru chat">✕</button>
+  </div>
+  <div class="aguru-log" id="aguruLog" aria-live="polite"></div>
+  <div class="aguru-dial" title="Regulates pedagogical intervention, not theological truth">
+    <span>dial</span>
+    <input type="range" id="aguruDial" min="0" max="3" value="1" step="1" aria-label="Guru dial: pedagogical intervention" />
+    <span class="stop" id="aguruDialStop">question</span>
+  </div>
+  <form class="aguru-input" id="aguruForm">
+    <textarea id="aguruText" rows="1" placeholder="Ask a question…" aria-label="Your question for a.guru"></textarea>
+    <button type="submit" aria-label="Send">↑</button>
+  </form>
+  <div class="aguru-foot">never initiates · never scores · always shows provenance</div>
+</aside>
+
+<script>
+(function () {
+  var EP = localStorage.getItem("aguru.endpoint") || "/api/a-guru";
+  var DIAL = ["listen", "question", "teach", "challenge"];
+
+  var launch = document.getElementById("aguruLaunch");
+  var panel = document.getElementById("aguruPanel");
+  var close = document.getElementById("aguruClose");
+  var log = document.getElementById("aguruLog");
+  var form = document.getElementById("aguruForm");
+  var text = document.getElementById("aguruText");
+  var dial = document.getElementById("aguruDial");
+  var dialStop = document.getElementById("aguruDialStop");
+  var opened = false;
+
+  dial.addEventListener("input", function () { dialStop.textContent = DIAL[dial.value]; });
+
+  function show() {
+    panel.classList.add("open");
+    launch.setAttribute("aria-expanded", "true");
+    launch.style.display = "none";
+    if (!opened) {
+      opened = true;
+      addBot(
+        "I am a.guru — an experimental guru-function, not a guru.\n\n" +
+        "I read scripture, commentary, and thousands of recorded teacher–student " +
+        "conversations; I will show you where every claim comes from, and I will " +
+        "distinguish tradition from my own inference.\n\n" +
+        "I cannot initiate you, and I will never pretend otherwise.\n\n" +
+        "Ask a question. Or press ↵ on an empty line and I will ask you one.",
+        ["Welcome", "a.guru v0.1 — design specification", "Not yet connected to a model endpoint."]
+      );
+    }
+    text.focus();
+  }
+  function hide() {
+    panel.classList.remove("open");
+    launch.setAttribute("aria-expanded", "false");
+    launch.style.display = "";
+  }
+  launch.addEventListener("click", show);
+  close.addEventListener("click", hide);
+
+  function el(cls, txt, prov) {
+    var d = document.createElement("div");
+    d.className = "msg " + cls;
+    d.textContent = txt;
+    if (prov && prov.length) {
+      var pv = document.createElement("span");
+      pv.className = "provenance";
+      pv.textContent = "── provenance ──\n" + prov.join("\n");
+      d.appendChild(pv);
+    }
+    return d;
+  }
+  function addUser(t) { log.appendChild(el("user", t)); log.scrollTop = log.scrollHeight; }
+  function addBot(t, prov) { log.appendChild(el("bot", t, prov)); log.scrollTop = log.scrollHeight; }
+  function addErr(t) { log.appendChild(el("err", t)); log.scrollTop = log.scrollHeight; }
+
+  async function call(req) {
+    var res = await fetch(EP, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(req)
+    });
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    return res.json();
+  }
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    var q = text.value.trim();
+    text.value = "";
+    addUser(q || "(invite a question)");
+    var req = { mode: "dialogue", dial: DIAL[dial.value], question: q || null, stream: false };
+    try {
+      var data = await call(req);
+      addBot(
+        data.response || data.text || "(empty response)",
+        (data.provenance || []).map(function (p) {
+          return typeof p === "string" ? p : (p.layer + " · " + (p.locator || p.work || "") +
+            (p.inference === true ? "" : ""));
+        })
+      );
+    } catch (err) {
+      if (EP.indexOf("/api/a-guru") === 0) {
+        addErr(
+          "No a.guru engine is attached at this address yet (" + err.message + ").\n\n" +
+          "This panel is the instrument's interface, wired to an endpoint that is " +
+          "still under construction — the corpus pipeline and provenance checker " +
+          "are being built in the repository. Set an endpoint with:\n\n" +
+          "localStorage.setItem('aguru.endpoint', 'https://…')\n\n" +
+          "Until then, sit with the question yourself. That is a legitimate outcome."
+        );
+      } else {
+        addErr("The a.guru engine did not respond (" + err.message + "). The source documents remain available below.");
+      }
+    }
+  });
+
+  text.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); form.requestSubmit(); }
+  });
+})();
+</script>
+</body>
+</html>
