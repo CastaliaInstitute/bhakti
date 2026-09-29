@@ -9,6 +9,11 @@ Static GitHub Pages site, deployed from the **root of `main`** (`.nojekyll` pres
 
 ## a.guru chat widget
 
+Edge service specification: [a-guru-edge.md](a-guru-edge.md) — route (thin edge composing
+ask-faculty for historical lenses), dial→permitted-acts table, freemium rule
+(5 free questions/visitor/24h keyed by person_ref, then honest 429 membership
+invitation; members token-metered; open-open on auth-service outage).
+
 `index.html` ships a lower-right chat popup. It POSTs to the endpoint in
 `localStorage.aguru.endpoint` (default `/api/a-guru`) and expects:
 
