@@ -339,9 +339,6 @@
 <h1 class="title">a.guru — An Experimental Computational Guru-Function</h1>
 <p style="text-align:center; font-style:italic; color:var(--muted); margin-top:.2rem;">Methods and Results · Version 0.1 · 2026-09-29</p>
 
-<h1 class="title">a.guru — Methods and Results (v0.1) | Bhakti. A
-Castalia Institute inquiry</h1>
-</header>
 <nav id="TOC" role="doc-toc">
 <ul>
 <li><a href="#aguru--an-experimental-computational-guru-function"
@@ -368,6 +365,8 @@ Ethics</a></li>
 <li><a href="#8-what-remains-and-next-steps"
 id="toc-8-what-remains-and-next-steps">8. What Remains, and Next
 Steps</a></li>
+<li><a href="#9-related-work-sketch" id="toc-9-related-work-sketch">9.
+Related Work (sketch)</a></li>
 <li><a href="#appendix-a--guru-act-vocabulary-closed-set-v01"
 id="toc-appendix-a--guru-act-vocabulary-closed-set-v01">Appendix A —
 Guru Act Vocabulary (closed set, v0.1)</a></li>
@@ -525,6 +524,19 @@ each is therefore a <em>rival explanation</em> for any residual gap
 between functional performance and guru-hood, and the evaluation design
 (§5.4) is arranged to keep the gap measurable rather than
 rhetorical.</p>
+<p><strong>A limitation stated in advance.</strong> No behavioral result
+— however strong — can by itself decide
+<code>G_functional ≟ G_guru</code>, because no traditional claim in the
+corpus asserts that guru-hood is behaviorally supervenient. Behavioral
+convergence is evidence <em>for function replacement</em>, and nothing
+more; the ontological remainder, if real, is underdetermined by behavior
+<strong>by definition</strong>. The experiment's honest ambition is
+correspondingly narrower: to (a) reconstruct the observable functions as
+far as they will go, (b) audit the reconstruction, and (c) bound which
+missing variables an <em>outcome on the student's side</em> actually
+requires (E7). Claims about what remains <em>in the guru</em> are
+theological inferences, not results of this program, and are flagged
+wherever they appear.</p>
 <p><strong>Decomposition of R.</strong> A response is not treated as
 prose to be imitated but as a tensor of <strong>Guru Acts</strong> —
 observable pedagogical moves (Appendix A: 17 categories, e.g.
@@ -748,6 +760,21 @@ sample (verified to date, 2026-09-29)</h3>
 (1.71 M); morning walks 186 (0.64 M); letters 40; magazine (Back to
 Godhead) 133 (198 k). Year coverage 1944–1977, with the densest years
 1972–1974 (420 / 414 / 438 records).</p>
+<p><strong>Coverage and skew, stated explicitly.</strong> Against the
+census universe, the ingest is lecture-dominant: 1,616 of 2,141 lectures
+(~75%) versus 407 of 1,099 conversations (~37%) and only 40 of 6,634
+letters (<strong>0.6%</strong>). The individually addressed styles — the
+letters' one-to-one guidance and the room conversations — are the
+least-covered layers at present, and every person-specific claim
+downstream (the <code>H</code> term of §2; Counsel mode; E4) inherits
+this skew until the letters ingest completes; that completion is
+construction priority (§8). Overall verified fraction of the combined
+universe is on the order of <strong>8–10%</strong> (denominators differ
+between the manifest's 28,725 listed records and the census's category
+pages; regenerate per-genre percentages on completion rather than
+quoting the merge twice). All statistics in §4 carry the ingest
+date-stamp 2026-09-29 and small-n caveats, and every mean reported here
+is an early-run sample mean that will shift as the corpus completes.</p>
 <h3 id="44-structural-findings-sample-verified">4.4 Structural findings
 (sample-verified)</h3>
 <p>These findings are themselves results — they quantify how dialogical
@@ -856,14 +883,29 @@ violation of spec.</li>
 <h3 id="54-evaluation-design-pre-registered">5.4 Evaluation design
 (pre-registered)</h3>
 <p>Outcomes are declared before MVP deployment.</p>
+<p><strong>E0 — Annotation-fidelity pilot (gate; runs before any
+act-model work).</strong> 50 sampled interactions segmented by three
+independent raters (one tradition-literate rater plus two generalists)
+into Guru Acts. Passage: per-act κ; adjudicated revision of the 17-act
+vocabulary where overlap produces persistent disagreement (candidate
+queue: <code>EXPLAIN/INTERPRET</code>, <code>WARN/CHALLENGE</code>).
+Gate condition: no act-type below κ = 0.6, or the taxonomy is revised
+before the model work begins. A further declared boundary: the
+<em>labels are themselves machine-assistable inferences</em>, so
+annotation fidelity is an audit of the provenance architecture's
+foundation, not a formality.</p>
 <p><strong>E1 — Behavioral fidelity.</strong> Construct scenes
 <code>X = (P, H, Q, C)</code> from held-out historical interactions
 <em>with the historical response withheld</em>. Task: predict
 <code>Y = (Guru Acts, sources)</code>. Metrics: (a) expert-panel
 inter-rater agreement (κ) between predicted and actual act tensors; (b)
-sequence-level edit distance over act sequences, with
-teacher-conditioned baselines (unigram frequency prior;
-genre-conditioned prior). Report per-act-type confusion.</p>
+sequence-level edit distance over act sequences. <strong>Pre-registered
+null models, mandatory:</strong> (i) corpus-frequency act prior (always
+emit the teacher's modal progression); (ii) genre-conditioned prior;
+(iii) a lexical/position-only baseline. The reportable result is the
+<strong>Δ over these nulls</strong>, per act type — raw agreement is a
+base-rate artifact on a one-teacher corpus and is never presented as a
+headline number.</p>
 <p><strong>E2 — Source fidelity.</strong> For sampled responses,
 scholars audit each proposition against its stated provenance path.
 Metrics: layer-leakage rate (proportion of propositions whose layer
@@ -974,7 +1016,9 @@ model), Sivananda (comparison case) in the Castalia faculty system</td>
 </tr>
 </tbody>
 </table>
-<h3 id="63-feasibility-observations">6.3 Feasibility observations</h3>
+<h3
+id="63-design-analyses-inferences-from-structure--not-measurements">6.3
+Design analyses (inferences from structure — not measurements)</h3>
 <p>From the corpus structure alone, three design hypotheses are advanced
 (not yet tested):</p>
 <ul>
@@ -1065,11 +1109,22 @@ conversation length is explicitly not a success metric.</li>
 <hr />
 <h2 id="8-what-remains-and-next-steps">8. What Remains, and Next
 Steps</h2>
-<p>The MVP (corpus: Gītā; selected Bhāgavatam; Tattva- and
-Bhakti-sandarbha; licensed Bhaktivinoda and Prabhupāda material;
-capabilities: Ask / Study / Dialogue, source-separated retrieval,
-citation display, inquiry history, GuruAct classification) is the next
-construction milestone, after which E1–E7 execute as pre-registered.</p>
+<p><strong>Construction priorities, in order:</strong> (1) complete the
+letters and conversations ingest — the individually addressed registers
+that the currently lecture-dominant sample undercovers (0.6% of letters
+at this writing), on which the <code>H</code> term, Counsel mode, and E4
+stand; (2) the Sandarbha theological layer (Tattva, Bhakti) as
+structured ontology, not prose; (3) the MVP (corpus: Gītā; selected
+Bhāgavatam; Tattva- and Bhakti-sandarbha; licensed Bhaktivinoda and
+Prabhupāda material; capabilities: Ask / Study / Dialogue,
+source-separated retrieval, citation display, inquiry history, GuruAct
+classification), after which E0–E7 execute as pre-registered.</p>
+<p><strong>Validity infrastructure scheduled:</strong> external
+pre-registration of E0–E7 (OSF or equivalent) including panel
+composition criteria (tradition-literate raters identified before runs;
+generalist controls) and power planning per outcome; the
+<code>evaluations/</code> directory ships run configurations, withheld
+scenes, and panel instructions at execution time.</p>
 <p>Because devotion, like inquiry, is a function of the student, the
 decisive questions are student-side: whether practitioners adopt
 practice, whether their questions deepen, whether their dependence
@@ -1082,8 +1137,51 @@ always the work of the crown.</p>
 AI can be a guru. It builds the functional reconstruction layer by layer
 — and asks, at each layer, whether guru remains irreducibly absent. When
 the observable functions are reconstructed as far as they will go, what
-is left over is what the experiment was designed to find.</p>
+is left over is what the experiment was designed to find —
+<em>epistemically</em> remaining; what is left over <em>in the guru</em>
+is the question the sources themselves will answer or decline to answer,
+and this program will not manufacture their reply.</p>
 <hr />
+<h2 id="9-related-work-sketch">9. Related Work (sketch)</h2>
+<p>The AI-companion and AI-religion literatures are prior art in
+adjacent space, and this program should be positioned — and constrained
+— by them:</p>
+<ul>
+<li><strong>Conversational artifacts and the "Eliza effect"</strong>:
+Weizenbaum's <em>ELIZA</em> (1966) demonstrated rapport-formation with a
+trivially mechanical interlocutor; Reeves and Nass's <em>media
+equation</em> findings (1996) and Turkle's <em>Alone Together</em>
+(2011) document the acquaintance-with-artifacts that §5.3's guard
+conditions must treat as default behavior, not anomaly.</li>
+<li><strong>Para-social relationship</strong> (Horton &amp; Wohl, 1956)
+frames Phase III's risk taxonomy (<code>transference</code>,
+<code>parasociality</code>, <code>perceived presence</code>); dependency
+metrics (E6) should adopt existing para-social instruments rather than
+invent them.</li>
+<li><strong>AI clergy experiments, publicly reported</strong>: the 2023
+AI-generated sermon at St. Paul's, Munich, and the 2024 <em>Deus in
+machina</em> AI-confession installation at St. Peter's Chapel, Lucerne —
+both widely covered in the technical and religious press. They are
+instructive precedents for exactly this project's risk surface (unwary
+participants encountering an AI <em>inside</em> a sacred frame) and are
+the reason E7's ascribed arm carries enhanced consent and
+debriefing.</li>
+<li><strong>Digital-bhakti scholarship</strong> (emerging area covering
+online darśan, app-based practice, and virtual satsaṅg) supplies the
+tradition-specific context missing elsewhere; a formal review belongs in
+the next revision once the MVP exists.</li>
+<li><strong>The Turing-test tradition</strong> the paper repositions in
+§5.4: a.guru's "Turing test we actually want" is a
+<em>judged-differences</em> protocol rather than a deception protocol,
+following the lesson the machine-imitation literature itself learned
+about pre-registering judges.</li>
+</ul>
+<p>The gap this paper occupies: no prior work known to us combines (a)
+verse-addressable scripture, (b) a large interaction-annotated guru
+behavioral corpus, (c) per-response multi-layer provenance, and (d) a
+refusal of impersonation as design constraint. If another project
+already has all four, it should be cited here; we will incorporate
+it.</p>
 <h2 id="appendix-a--guru-act-vocabulary-closed-set-v01">Appendix A —
 Guru Act Vocabulary (closed set, v0.1)</h2>
 <p><code>EXPLAIN · QUESTION · CORRECT · CHALLENGE · ENCOURAGE · CONSOLE · REFRAME · PRESCRIBE · REMIND · INTERPRET · REFUSE · WARN · PRAISE · TELL_STORY · CITE_SCRIPTURE · REQUEST_PRACTICE · INVITE_REFLECTION</code></p>
