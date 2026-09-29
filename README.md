@@ -8,6 +8,13 @@
 - Spec: [DESIGN.md](DESIGN.md) — a.guru v0.1 design specification
 - Ontology: [ONTOLOGY.md](ONTOLOGY.md) — Claim, Pramāṇa, GuruAct, PersonState, Practice, Tradition, Interaction
 - Persona: [persona/a-guru.json](persona/a-guru.json) — Castalia persona-schema definition for the a.guru computational guru-function
+- Paper: [WHITEPAPER.md](WHITEPAPER.md) — methods and results (v0.1): provenance architecture, corpus quantification, pre-registered evaluations E1–E7 ([rendered HTML](https://bhakti.castalia.institute/paper/))
+- Review: [REVIEW.md](REVIEW.md) — critical review of v0.1 (defects found and fixed; E1 null-model and E7 inference-bound requirements; pre-E-run action list)
+
+## Guiding theses
+
+1. **Never hide the boundary** between what the tradition says and what the machine thinks.
+2. **Devotion, like inquiry, is a function of the student.** The guru occasions; the disciple transforms. Therefore a.guru's success metrics are student-side (practice adopted, questions deepened, dependence decreased), and the guru-side "missing variables" are measured rather than presumed.
 
 ## The research question
 
