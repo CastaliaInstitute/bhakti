@@ -1,0 +1,39 @@
+# Critical Review — a-guru-edge.md v0.1
+
+**Scope.** Review of the edge-service specification against the goal (live access-controlled chat: limited free access → membership/pay for AI tokens), the persona contract, and the project's honesty norms. Conducted 2026-09-29. Findings first, fixes applied inline in `a-guru-edge.md` where flagged "applied."
+
+---
+
+## W1. Route decision — affirmed, with one correction of my own stated rationale
+
+The thin-dedicated-edge decision survives scrutiny, but the §1 rationale cited a defect ask-faculty does not have: `ask-faculty` *already exposes* `enable_fidelity_check`, `output_contract` (with `required_anchors`), and `rag_exclude` (held-out evaluation targets). The genuine residual reasons for a thin edge remain: per-claim provenance return (ask-faculty returns none), metering/gating (no concept of it), dial policy (not expressible as contextual modes), and the consented person store. The edge should *reuse* `output_contract.required_anchors` and fidelity checks in its ask-faculty sub-calls rather than reimplement them. *(Correction noted in spec §1.)*
+
+## W2. Monetization defects
+
+- **W2.1 Unit of metering is pedagogically hostile (severity: high).** "N = 5 questions / visitor / 24 h" charges by *turn*, but Dialogue and Counsel modes are precisely where a.guru asks multiple questions back. Counting turns penalizes the user for the project's own pedagogy — and creates an incentive to make a.guru *less* dialogical on free tiers, i.e., to monetize away the best part of the instrument. **Fix (applied):** the free unit is an *exchange* — everything between one user-initiated question and the user's next turn counts once, however many a.guru turns it takes. Tokens, not turns, remain the internal cost unit everywhere.
+- **W2.2 The dial must never be tiered (severity: high).** If `challenge` or `teach` were member-only, the *honesty of the instrument itself* becomes paywalled — a spiritual-quality paywall, and a category violation given the persona contract. **Fix (applied, new §5.1 principle):** policy (all dials, refusals, provenance completeness, honesty) is identical in every tier; depth (retrieval breadth, lens fan-out count, model size, monthly token ceiling) is what membership buys.
+- **W2.3 Member downgrade on outage harms paying users (severity: medium).** "Open-open on outage" currently reads as *fall back to anonymous free tier* — which would clamp a paying member to the free cap mid-session. **Fix (applied):** a valid auth JWT alone (verifiable locally, no auth-service round-trip) grants a safe default member ceiling flagged `degraded: true, meter_debt: true`; tier lookup is re-restated when the service returns. Fail-open with metering debt, never fail-closed.
+- **W2.4 Abuse economics of the free tier are unaddressed (severity: medium).** `verify_jwt: false` + client-side `person_ref` means a scripted caller can steamroll the anonymous tier; daily-hash rotation adds no protection (fresh hash each day ⇒ fresh budget). Honest position: **the free tier is paced, not abuse-proof.** Institutional token budget caps the blast radius; abuse is accepted as research cost and *disclosed* in the spec rather than pretended away. **Fix (applied):** sticky 24h key (no rotation theater), documented "paced-not-enforced" stance, and an institutional daily free-token ceiling.
+- **W2.5 Lens fan-out is a cost amplifier parked on the cheapest tier (severity: medium).** `compare` mode = multiple ask-faculty sub-calls, each with its own RAG + LLM generation — the most expensive mode offered to anonymous visitors. **Fix (applied):** per-tier retrieval budget: anonymous ≤ 1 lens call and no `compare`; members ≤ 3 lenses, `compare` allowed. E-run sessions must log tier so evaluations don't confound quality with depth (feeds REVIEW.md E1/E7 validity).
+- **W2.6 Scope discipline on "pay" (severity: note).** The goal says "require membership / pay"; the στ spec consumes *existing* membership status (Supabase auth + custodian/patron tiers — already the institute's rails). Building new payment capture is out of the MVP checkpoint set by design; paywall copy directs to the join page. State said explicitly in §5 so nobody silently grows the goal.
+
+## W3. Privacy and disclosure defects
+
+- **W3.1 "Anonymized IP hash (rotated daily)" is protective-sounding noise.** Rotation changes nothing about enforcement and implies more protection than exists. Sticky 24h window, disclosed in the widget footer as what it is: "the instrument counts your use for the day by a per-device key; nothing human-readable is stored." *(Applied.)*
+- **W3.2 No retention policy for quota or usage rows.** **Fix (applied):** free-quota rows pruned at 48 h; member usage rows keyed by member ID pseudonym only, aggregated for reporting; PII never attached.
+- **W3.3 Persona-bundle drift.** The edge loading `persona/a-guru.json` "at cold start" is underspecified — from where? A duplicated copy in the function directory can drift from the bhakti repo's canonical file. **Fix (applied):** bundled copy pinned by `AGURU_PERSONA_SHA`; the edge refuses to serve (honest-degradation payload) if the sha of the bundled persona does not match the deployed pin, and every session logs the sha in `eval_note`.
+
+## W4. Enforcement-fidelity honesty deficit
+
+§3's "hard strings, rejected in output even if model-generated" overpromises: string matching is evadable by paraphrase; "attainment" claims are semantically definable and not listable. **Fix (applied):** enforcement is *belt and braces, best-effort* — prompt-level constraints first, string gate last; and the residual leakage rate (guard-bypass per 1,000 sampled responses) becomes an E2-measured quantity, with the spec saying so plainly rather than implying determinism.
+**W4.1 (new defect found by this review's own fix):** the validator path (E-run/curl loops) must not burn the very anonymous quota it is testing — a **`AGURU_VALIDATOR_KEY`** allowlist with its own pre-paid budget is added (§5.3); the key exists only in env + evaluation configs, never in client code.
+
+## W5. Widget contract gap (interface, not edge)
+
+The widget's catch-all error path will render a deliberate 429 as *"The a.guru engine did not respond"* — wrong genre of message (limit status ≠ malfunction) and, per its current copy, mildly dishonest about why nothing came back. **Required (blocked on implementation):** widget handles `429 needs_membership` as a distinct, styled, honest status — instrument copy, zero upsell pressure, with the non-sales alternatives ("the sources remain free on-site; sit with the question"). Filed as part of checkpoint 6 (the endpoint-switch commit), per the aim-enable of the contract section in a-guru-edge.md §2.
+
+## Verdict
+
+**Route: sound. Metering: needs the fixes now applied.** The freemium idea is compatible with the project only under the §5.1 principle — *policy is unbought, depth is bought* — and metering in exchanges, with member-fail-open on outage, honest pricing copy, and storage retention rules. The genuinely-open items are implementation questions the checkpoints already carry: keeping the anonymous tier cheap *and* within institutional budget, and nothing else creative at this stage beyond review item W1's reuse-corrective.
+
+*Fix statuses: applied — W1 (exchange unit), W2.2 (policy unbilled principle), W2.3 (fail-open with meter debt), W2.4 (paced-honest + institutional cap), W2.5 (lens budget by tier), W3.1–W3.3 (sticky key, retention, persona pin), W4 (best-effort enforcement + E2 leak measure), W4.1 (validator key). Open — 429 widget patch (checkpoint 6), validator-key issuance at deploy, related-work/precedent scan for metered spiritual instruments.*
