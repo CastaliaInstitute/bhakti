@@ -363,13 +363,19 @@
     <textarea id="aguruText" rows="1" placeholder="Ask a question…" aria-label="Your question for a.guru"></textarea>
     <button type="submit" aria-label="Send">↑</button>
   </form>
-  <div class="aguru-foot">never initiates · never scores · always shows provenance</div>
+  <div class="aguru-foot">instrument · counts your use per day by a device key · never initiates · never scores · provenance always shown</div>
 </aside>
 
 <script>
 (function () {
   var EP = localStorage.getItem("aguru.endpoint") || "/api/a-guru";
   var DIAL = ["listen", "question", "teach", "challenge"];
+  var PERSON = localStorage.getItem("aguru.person");
+  if (!PERSON) {
+    PERSON = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : "p-" + Date.now() + "-" + Math.random().toString(36).slice(2);
+    localStorage.setItem("aguru.person", PERSON);
+  }
+  var submitting = false;
 
   var launch = document.getElementById("aguruLaunch");
   var panel = document.getElementById("aguruPanel");
@@ -396,7 +402,9 @@
         "distinguish tradition from my own inference.\n\n" +
         "I cannot initiate you, and I will never pretend otherwise.\n\n" +
         "Ask a question. Or press ↵ on an empty line and I will ask you one.",
-        ["Welcome", "a.guru v0.1 — design specification", "Not yet connected to a model endpoint."]
+        ["Welcome", "a.guru v0.1 — design specification"].concat(
+          EP.indexOf("/api/a-guru") === 0 ? ["Not yet connected to a model endpoint."] : []
+        )
       );
     }
     text.focus();
@@ -439,10 +447,12 @@
 
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
+    if (submitting) { return; }
+    submitting = true;
     var q = text.value.trim();
     text.value = "";
     addUser(q || "(invite a question)");
-    var req = { mode: "dialogue", dial: DIAL[dial.value], question: q || null, stream: false };
+    var req = { mode: "dialogue", dial: DIAL[dial.value], question: q || null, person_ref: PERSON, stream: false };
     try {
       var r = await call(req);
       if (r.ok) {
@@ -460,7 +470,10 @@
           (r.data && r.data.response) ||
           "You have used today's instrument budget. Membership covers the model tokens for deeper study. " +
           "The practice and the sources remain free: try the practice and observe; sit with the question; " +
-          "read the sources on-site."
+          "read the sources on-site.",
+          (r.data && r.data.provenance || []).map(function (p) {
+            return typeof p === "string" ? p : [p.layer, p.locator || p.work].filter(Boolean).join(" · ");
+          })
         );
       } else if (EP.indexOf("/api/a-guru") === 0) {
         addErr(
@@ -487,6 +500,8 @@
       } else {
         addErr("The a.guru engine did not respond (" + err.message + "). The source documents remain available below.");
       }
+    } finally {
+      submitting = false;
     }
   });
 
