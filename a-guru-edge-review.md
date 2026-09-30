@@ -37,3 +37,22 @@ The widget's catch-all error path will render a deliberate 429 as *"The a.guru e
 **Route: sound. Metering: needs the fixes now applied.** The freemium idea is compatible with the project only under the §5.1 principle — *policy is unbought, depth is bought* — and metering in exchanges, with member-fail-open on outage, honest pricing copy, and storage retention rules. The genuinely-open items are implementation questions the checkpoints already carry: keeping the anonymous tier cheap *and* within institutional budget, and nothing else creative at this stage beyond review item W1's reuse-corrective.
 
 *Fix statuses: applied — W1 (exchange unit), W2.2 (policy unbilled principle), W2.3 (fail-open with meter debt), W2.4 (paced-honest + institutional cap), W2.5 (lens budget by tier), W3.1–W3.3 (sticky key, retention, persona pin), W4 (best-effort enforcement + E2 leak measure), W4.1 (validator key), **W5 (widget 429 patch: index.html now renders `needs_membership` as a distinct `.msg.status` instrument-status turn — never the engine-error genre; validated in-browser via a declared fetch-stub, see evaluations/README.md)**. Open — validator-key issuance at deploy, precedent scan for metered spiritual instruments.*
+
+
+## Revision pass 2 (2026-09-29, after the first revision commits)
+
+Reviewing the reviewed — the widget/contract diffs produced by the previous fixes, plus their interactions. Findings and applied fixes:
+
+**S1 (high) — `person_ref` absent from the shipped requests.** The quota design keys on the client-sent `person_ref`, but the widget never sent it: the metering scheme had no key source on the client and would have silently fallen back to IP/device every time, contradicting the disclosed footer rule. **Applied:** widget now generates a persisted opaque UUID (`localStorage.aguru.person`, `crypto.randomUUID` with fallback) and sends it as `person_ref` on every request.
+
+**S2 (medium) — the hardcoded welcome self-describes engine status.** The client welcome carried a provenance chip reading "Not yet connected to a model endpoint." — a client-side claim that goes *false* the moment the edge is live, i.e., precisely the staleness-dishonesty genre the project's maxim forbids. **Applied:** the status chip now appears only when the endpoint is the known-empty default; with a configured endpoint the welcome makes no engine-status claim (the server greeting, once it exists, carries any such state).
+
+**S3 (medium) — privacy disclosure missing from the widget.** §5/W3.1's rule ("widget footer discloses the device-key counting") existed only in the spec. **Applied:** footer now reads "instrument · counts your use per day by a device key · never initiates · never scores · provenance always shown."
+
+**S4 (medium) — double-submit burns double budget.** Enter-key spam fired concurrent submits; the meter (and the honest-degradation logic) would charge/flip twice for one question. **Applied:** `submitting` in-flight guard with `finally` reset.
+
+**S5 (low) — spec §2's 429 body carried a TODO note addressed to the widget.** Since the widget now implements that rendering, the payload example should be pure contract. **Applied:** TODO prose removed from the JSON; rendering requirement lives in AGENTS.md and the review.
+
+**S6 (note) — mode confusion.** The landing page describes Ask/Study/Counsel/Compare/Practice/Reflect; the widget sends fixed `mode:"dialogue"` with dial as the pedagogy control. Documented in AGENTS.md as a v0.1 simplification (the edge maps dial; richer mode UI arrives with the edge) rather than pretending modes are selectable.
+
+**Verdict:** the revision closed W5 but left four smaller contract-party defects (S1–S4) unreviewed; these are the ones that bite at integration time, not in prose review. All applied. Re-validated via the declared fetch-stub after patch; the 429 path still renders as instrument status (`msg status`), now also with provenance chips.
