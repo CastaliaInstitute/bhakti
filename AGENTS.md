@@ -29,10 +29,16 @@ POST { "mode": "dialogue|ask|counsel|...", "dial": "listen|question|teach|challe
 Two provenance kinds are required, not one (per REVIEW.md §3.5): **assertion
 provenance** (whose claim this is — the `layer`/`work`/`locator` entries above)
 and **selection provenance** (why these passages surfaced rather than others,
-which is also the machine's doing). Add a `selection` field to provenance
-entries as soon as the backend exists; the UI will render both. Until an
-engine exists the widget degrades to an honest "not connected" message —
-never a fake guru answer.
+which is also the machine's doing). The UI already renders both kinds per chip.
+
+Client-known limits (documented v0.1 simplifications): the widget always sends
+`mode: "dialogue"` (the dial changes pedagogy) — Ask/Study/Counsel/Compare as
+distinct request modes arrive with the edge and richer UI; it sends an opaque
+`person_ref` (random UUID persisted in localStorage — the quota key, disclosed
+in the widget footer); in-flight submits are guarded. Until an engine exists
+the widget degrades to an honest "not connected" message — never a fake guru
+answer; with an engine, 429 renders as instrument status, never as error or
+as fake guru content.
 
 ## Hard rules of this project (from DESIGN.md)
 
