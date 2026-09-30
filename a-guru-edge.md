@@ -38,8 +38,8 @@ Body:    { "mode": "ask|study|dialogue|counsel|practice|reflect|compare",
                           "selection": "why this passage surfaced (retrieval reason)" } ],
        "faithfulness_review": null,   # present when verify=on
        "eval_note": null }            # sampled, logged, stripped of personal info
-429  { "error": "free_limit",          # or "tier_ceiling" for members; widget renders
-       "response": "(instrument status: membership invitation — see §5 copy rules; ALSO widget must render 'needs_membership' as a distinct honest status, not the engine-error path — review W5, checkpoint 6)",
+429  { "error": "free_limit",          # or "tier_ceiling" for members
+       "response": "instrument-status copy per §5 rules",
        "provenance": [ { "layer": "ai_inference", "work": "a-guru-edge", "locator": "metering", "selection": "limit reached; status copy, not counsel" } ] }
 ```
 
