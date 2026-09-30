@@ -46,3 +46,21 @@ Also revised this date: metering unit fixed to *exchanges* (one user message
 plus a.guru's occasioned turns — never per-turn), policy never tiered (a-guru
 -edge-review.md W1/W2.2), member fail-open with meter debt on outage, lens
 budgets per tier, persona sha pin, validator key plan.
+
+## 2026-09-29 — Revision pass 2 (second-pass review of the revised widget; declared fetch-stub)
+
+Method: live page; fetch stubbed for one POST to capture the request body and
+return the contract-shaped 429. Validates the *client contract* only.
+
+Results — pass:
+
+- `person_ref` generated (persistent UUID in localStorage) and confirmed
+  **present in the POST body**, matching the quota-key design; footer carries
+  the device-key disclosure sentence.
+- 429 continues to render as `msg status` with provenance/selection chips.
+- Welcome's engine-status chip appears only on the empty-default endpoint
+  (conditional), per S2.
+- In-flight submit guard present (double-Enter cannot fire two posts; not
+  forced-failure-tested — asserted by code review + parse check).
+
+Open items unchanged: edge implementation and quota enforcement (checkpoints 2–5).
