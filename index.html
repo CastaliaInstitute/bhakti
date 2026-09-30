@@ -172,6 +172,18 @@
   .msg.user { align-self: flex-end; background: var(--ink); color: var(--paper); border-bottom-right-radius: .15rem; }
   .msg.bot { align-self: flex-start; background: #fff; border: 1px solid var(--line); border-bottom-left-radius: .15rem; }
   .msg.err { align-self: flex-start; background: #f4e0d4; border: 1px solid var(--saffron-deep); font-size: .84rem; }
+  .msg.status {
+    align-self: flex-start;
+    background: var(--paper-deep, #efe7d5);
+    border: 1px dashed #a05512;
+    font-size: .84rem; font-style: italic; color: #6e6480;
+  }
+  .msg.status::before {
+    content: "instrument status · not counsel";
+    display: block;
+    font-size: .62rem; text-transform: uppercase; letter-spacing: .1em;
+    color: #a05512; font-style: normal; margin-bottom: .3rem;
+  }
   .msg .provenance {
     display: block; margin-top: .5rem; padding-top: .45rem;
     border-top: 1px dashed rgba(26,19,48,.2);
@@ -412,6 +424,7 @@
   function addUser(t) { log.appendChild(el("user", t)); log.scrollTop = log.scrollHeight; }
   function addBot(t, prov) { log.appendChild(el("bot", t, prov)); log.scrollTop = log.scrollHeight; }
   function addErr(t) { log.appendChild(el("err", t)); log.scrollTop = log.scrollHeight; }
+  function addStatus(t, prov) { log.appendChild(el("status", t, prov)); log.scrollTop = log.scrollHeight; }
 
   async function call(req) {
     var res = await fetch(EP, {
@@ -419,8 +432,9 @@
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(req)
     });
-    if (!res.ok) throw new Error("HTTP " + res.status);
-    return res.json();
+    var data = null;
+    try { data = await res.json(); } catch (_) {}
+    return { ok: res.ok, status: res.status, data: data };
   }
 
   form.addEventListener("submit", async function (e) {
@@ -430,14 +444,36 @@
     addUser(q || "(invite a question)");
     var req = { mode: "dialogue", dial: DIAL[dial.value], question: q || null, stream: false };
     try {
-      var data = await call(req);
-      addBot(
-        data.response || data.text || "(empty response)",
-        (data.provenance || []).map(function (p) {
-          return typeof p === "string" ? p : (p.layer + " · " + (p.locator || p.work || "") +
-            (p.inference === true ? "" : ""));
-        })
-      );
+      var r = await call(req);
+      if (r.ok) {
+        addBot(
+          (r.data && (r.data.response || r.data.text)) || "(empty response)",
+          ((r.data && r.data.provenance) || []).map(function (p) {
+            return typeof p === "string"
+              ? p
+              : [p.layer, p.work, p.locator, p.selection ? "sel: " + p.selection : ""]
+                  .filter(Boolean).join(" · ");
+          })
+        );
+      } else if (r.status === 429) {
+        addStatus(
+          (r.data && r.data.response) ||
+          "You have used today's instrument budget. Membership covers the model tokens for deeper study. " +
+          "The practice and the sources remain free: try the practice and observe; sit with the question; " +
+          "read the sources on-site."
+        );
+      } else if (EP.indexOf("/api/a-guru") === 0) {
+        addErr(
+          "No a.guru engine is attached at this address yet (HTTP " + r.status + ").\n\n" +
+          "This panel is the instrument's interface, wired to an endpoint that is " +
+          "still under construction — the corpus pipeline and provenance checker " +
+          "are being built in the repository. Set an endpoint with:\n\n" +
+          "localStorage.setItem('aguru.endpoint', 'https://…')\n\n" +
+          "Until then, sit with the question yourself. That is a legitimate outcome."
+        );
+      } else {
+        addErr("The a.guru engine did not respond (HTTP " + r.status + "). The source documents remain available below.");
+      }
     } catch (err) {
       if (EP.indexOf("/api/a-guru") === 0) {
         addErr(
