@@ -56,3 +56,18 @@ Reviewing the reviewed — the widget/contract diffs produced by the previous fi
 **S6 (note) — mode confusion.** The landing page describes Ask/Study/Counsel/Compare/Practice/Reflect; the widget sends fixed `mode:"dialogue"` with dial as the pedagogy control. Documented in AGENTS.md as a v0.1 simplification (the edge maps dial; richer mode UI arrives with the edge) rather than pretending modes are selectable.
 
 **Verdict:** the revision closed W5 but left four smaller contract-party defects (S1–S4) unreviewed; these are the ones that bite at integration time, not in prose review. All applied. Re-validated via the declared fetch-stub after patch; the 429 path still renders as instrument status (`msg status`), now also with provenance chips.
+
+
+## Revision pass 3 (2026-09-30 — deployed-behavior review; live curl)
+
+Reviewing the *deployed* edge against its spec, from its actual outputs rather than the code text:
+
+**T1 (high) — the dial was decorative.** `systemPrompt` (persona constraints, dial→acts table) was computed and never sent; the lens call carried only the question. At `listen` the edge still fabricated a full lens lecture with prescriptions — a direct violation of the permitted-acts table the provenance chips *claimed* to be obeying. Lesson recorded: the spec→code defect class this project keeps hitting is *asserting policy in the chips while not enforcing it in the path*. Applied: dial is now behavioral — `listen` returns an a.guru-authored invitation (no lens call; eval_note lens = 'none (listen)'), `question` passes a socratic hint, `teach`/`challenge` stronger hints into the lens prompt; dead block removed. Live-verified on both branches.
+
+**T2 (medium) — gate scope vs attributed voice.** The forbidden-claims string gate runs over the *entire* relay, including lens-quoted material: an authentic historical quote containing "my disciples" would be withheld. The gate that protects a.guru's speech shouldn't mute attributed historical speech. v0.1 stance: accept the false-positive (honest withholding, filter_hit logged); the principled fix — scoping the gate to the a.guru-authored span — applies when responses are authored rather than relayed. Documented, deferred with reason.
+
+**T3 (medium) — persona honesty state in production.** The deployed runtime cannot readTextFile the bundled persona; the pin honest-degrades to persona_sha "unbundled" and continues serving under inline constraints. Correct per W3.3's refusal logic — but "unbundled" must be an exceptional state, not the norm. Action: set AGURU_PERSONA_SHA from the bundle at deploy (or bundle the persona as a module import) so the pin is live rather than aspirational.
+
+**T4 (low) — dial-hint leakage.** The pedagogy hint ships inside the lens user message; a reconstruction may quote it back or react to it. Acceptable for v0.1; a dedicated a.guru synthesis prompt inside ask-faculty remains the correct long-term shape.
+
+Verdict: the edge now does what its chips say on the two exercised dials. Open: T3 pin, T2 gate scoping, checkpoint 4 live quota exercise, widget endpoint switch, site browser validation.
