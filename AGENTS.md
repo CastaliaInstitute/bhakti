@@ -11,8 +11,12 @@ Static GitHub Pages site, deployed from the **root of `main`** (`.nojekyll` pres
 
 Edge service specification: [a-guru-edge.md](a-guru-edge.md) — route (thin edge composing
 ask-faculty for historical lenses), dial→permitted-acts table, freemium rule
-(5 free questions/visitor/24h keyed by person_ref, then honest 429 membership
-invitation; members token-metered; open-open on auth-service outage).
+(per a-guru-edge-review.md: **5 free exchanges**/visitor/24h keyed by person_ref —
+an exchange = one user message plus whatever a.guru turns it occasion, never
+per-turn — then an honest 429 membership invitation rendered as instrument
+status; members token-metered with safe-default ceiling on auth-service outage;
+policy (dials, refusals, provenance) is unbought — membership buys depth only;
+free tier is paced, not abuse-proof).
 
 `index.html` ships a lower-right chat popup. It POSTs to the endpoint in
 `localStorage.aguru.endpoint` (default `/api/a-guru`) and expects:
