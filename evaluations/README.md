@@ -64,3 +64,32 @@ Results — pass:
   forced-failure-tested — asserted by code review + parse check).
 
 Open items unchanged: edge implementation and quota enforcement (checkpoints 2–5).
+
+## 2026-10-11 — revised live backend and isolated freemium gate
+
+Protocol: Deno type-check all changed functions; confirm `a.guru` exists in the
+faculty table; send a live `teach` request through the deployed edge; query the
+feature limits read-only; exercise the anonymous bucket with a throwaway key;
+then exercise the deployed public path until it returns its limit response.
+
+Results:
+
+- `deno check` passed for `a-guru`, `_shared/gate.ts`, and `ask-faculty`.
+- `a.guru` synthetic faculty row present (`persona.metadata.version = 0.1.0`).
+- Live edge POST returned HTTP 200. Response is authored by the synthetic
+  `a.guru` faculty and includes a deterministic source note, separate
+  "Historical comparison (unlocated)" and "a.guru inference" sections, and
+  response-level `guru_behavior` + `ai_inference` provenance. The exact
+  historical retrieval locators remain unavailable; cited text is explicitly
+  not represented as verified.
+- Membership SQL returned registered daily cap = 5 and member cap = unlimited
+  (null). There is no separate token ledger.
+- The isolated `a_guru_chat` bucket is independent of
+  `PUBLIC_FACULTY_CHAT_DISABLE_LIMIT`; the temporary direct-RPC bucket test
+  returned allowed/allowed/blocked at cap 2 and was deleted after the test.
+- The deployed public edge returned HTTP 429 after the daily cap was consumed
+  from this test network. The test used earlier requests in the same UTC bucket,
+  so it was not a clean five-call-from-zero count. The browser verification of
+  the 429 UI path follows below.
+- Magic-link UI is deployed in source; the email round-trip and a real member
+  JWT session were not exercised in this run.
