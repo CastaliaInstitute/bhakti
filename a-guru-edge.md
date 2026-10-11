@@ -9,7 +9,7 @@ Related: DESIGN.md §17 (technical architecture), ONTOLOGY.md (entities), person
 
 ## 1. Route Decision
 
-`a-guru` is deployed as a **thin dedicated Supabase Edge Function** — not a persona row inside `ask-faculty`.
+`a-guru` is a thin dedicated Supabase Edge Function **and** a synthetic faculty persona row (`a.guru`) served through `ask-faculty` for its authored synthesis. The historical lens is a separate call; its output is context for a.guru, never passed through as the final answer.
 
 Rationale (from the routing discussion; corrected by `a-guru-edge-review.md` W1 — ask-faculty already supplies `enable_fidelity_check`, `output_contract.required_anchors`, and `rag_exclude`, which the edge reuses in its sub-calls rather than reimplementing):
 
@@ -18,7 +18,7 @@ Rationale (from the routing discussion; corrected by `a-guru-edge-review.md` W1 
 3. **The meter and the gate.** Free/membership metering, token accounting, and the honest 429 path have no home in ask-faculty and must not be bolted onto a dialogue-oriented persona service.
 4. **The person model is the subject.** The consented sādhaka record and relationship memory are the research object (E4–E7), requiring their own consented store and audit trail.
 
-**Substrate:** `a-guru` composes calls to `ask-faculty` for historical lenses (the "Ask the Gurus" surface is literally ask-faculty fan-out against `a.prabhupada`, `a.bhaktivinoda`, …), owns its retrieval decomposition, dial policy, provenance assembly, metering, and returns the citation-bearing contract the widget already speaks.
+**Substrate:** `a-guru` calls `ask-faculty` once for a historical comparison lens (`a.prabhupada` in v0.1), then once as the synthetic `a.guru` faculty to write an independent answer. It owns dial policy, isolated metering, provenance assembly, and the widget contract. The first response is explicitly unlocated historical comparison material; until ask-faculty returns retrieval locators, it is not represented as a verified quotation.
 
 ## 2. API Contract (backwards-compatible with the shipped widget)
 
@@ -29,13 +29,14 @@ Headers: Content-Type: application/json
 Body:    { "mode": "ask|study|dialogue|counsel|practice|reflect|compare",
            "dial": "listen|question|teach|challenge",
            "question": "string|null",   # null in dialogue mode = a.guru invites a question
-           "messages": [...],           # optional prior turns (client-kept)
-           "person_ref": "opaque-id",   # optional; enables free-quota memory
+           "messages": [...],           # optional prior turns, held in this tab only
+           "person_ref": "opaque-id",   # optional continuity key; not quota identity
            "stream": false }
-200  { "response": "text",
+ 200  { "response": "text",
        "provenance": [ { "layer": "shastra|siddhanta|acharya|guru_behavior|ai_inference",
                           "work": "...", "locator": "...",
                           "selection": "why this passage surfaced (retrieval reason)" } ],
+       "provenance_scope": "response-level; exact passage locators may be unavailable",
        "faithfulness_review": null,   # present when verify=on
        "eval_note": null }            # sampled, logged, stripped of personal info
 429  { "error": "free_limit",          # or "tier_ceiling" for members
@@ -80,25 +81,26 @@ Dial *filters* which layers are permitted to surface in synthesis: at `question`
 
 ## 5. Metering — Free and Member Tiers
 
-**Principle (§5.1 — the governing rule of this whole section):** *policy is unbought, depth is bought.* Every user sees identical dial availability, refusal behavior, anti-sycophancy, and provenance completeness; what membership purchases is depth — retrieval breadth, lens fan-out, model size, monthly token ceiling. Nothing spiritual is ever gated, and the pricing copy is budget-need ("the tokens cost what they cost"), never aspiration-scarcity ("deeper wisdom awaits members"). If a proposed tier policy would ever change what a.guru *says or refuses*, it violates this spec.
+**Principle (§5.1 — target rule):** *policy is unbought, depth is bought.* Every user sees identical dial availability, refusal behavior, anti-sycophancy, and provenance completeness. The current v0.1 implementation does not vary model or retrieval depth by tier; membership currently removes the free/registered daily cap only. Any later depth-based tiering must not change what a.guru says or refuses.
 
-**Metering unit:** exchanges, not turns (review W2.1). One *exchange* = one user-initiated message plus whatever a.guru turns it occasions (follow-up questions, clarifications, ends). Charging per turn would penalize users for dialogue-mode pedagogy that the project itself prescribes. Internally, tokens are the cost unit both tiers meter.
+**Quota unit:** one request/exchange, not generated turn count. v0.1 makes at most one a.guru response to each user request; it does not yet conduct multi-turn sessions inside one request. Actual token usage is not currently recorded in a separate ledger.
 
 Anonymous free tier:
-- **N = 5 exchanges / visitor / 24 h**, keyed by the widget's opaque `person_ref` (localStorage) falling back to a sticky per-device pseudonym without PII; the widget footer discloses exactly this ("the instrument counts your use per day by a device key; nothing human-readable is stored"). **Disclosed stance: the free tier is paced, not abuse-proof** — a scripted caller can evade it, and the defense is the institutional daily free-token ceiling plus acceptance of bounded abuse as research cost (review W2.4).
-- The *free* tier uses the lighter model / shorter retrieval; same provenance discipline, same dial, same refusals — only depth differs. The welcome message states free status plainly and numerically.
-- On limit: **429** with honest copy — "you have used today's instrument budget; deeper study needs membership. The practice and the sources remain free: try the practice and observe; sit with the question; read the sources on-site." No urgency, no timestamp pressure, no upsell copy beyond the plain fact.
+- **N = 5 exchanges / visitor / UTC day** on the dedicated `a_guru_chat` feature. Identity is an IP-derived server-side hash in `consume_public_edge_chat`; the widget's `person_ref` is not the quota key. The shared `PUBLIC_FACULTY_CHAT_DISABLE_LIMIT` switch does not disable this isolated quota; only the separate `AGURU_PUBLIC_CHAT_DISABLE_LIMIT` emergency switch can do so. **Disclosed stance: the free tier is paced, not abuse-proof** — rotating IPs/devices can evade it, and an institutional daily token budget caps exposure.
+- The free tier uses the same model and one historical lens as registered/member chat. Its only current difference is the daily cap. The public key is server-side and responses include a join URL on limit.
+- On limit: **429** with the access-gate's response and join URL; the widget renders it as an instrument status, not an answer or an engine error. Copy should preserve non-sales alternatives (practice, sit with the question, use public sources).
 
 Member tier:
-- Supabase auth session (existing institute rails: authentik/Supabase auth paths; custodian/patron tiers already tracked). **The edge consumes existing membership status; acquiring payment is out of MVP scope by design** — copy directs to the join page (review W2.6).
-- **Token-metered by model usage**, per member, monthly (`usage(member_id_pseudonym, tokens_in, tokens_out, endpoint, ts)`); hard stop at tier ceiling → the same honest 429 copy at tier ceiling, never silent denial.
+- Supabase auth session (existing Supabase entitlement tiers). Registered accounts receive the `a_guru_chat` registered-tier cap (5/day); active members currently have no daily cap via the existing tier function. **There is no separate member-token ledger yet**, and the client sign-in flow forwards Supabase JWTs but does not settle payment itself.
 - Member sessions may opt in to the consented person model (longitudinal features, §8 of the Design); nothing person-derived ships on the anonymous tier.
-- **Outage rule (review W2.3): fail-open with meter debt.** If the tier/membership service is unreachable but the JWT verifies locally, the member is served at a safe default ceiling flagged `degraded: true, meter_debt: true`, reconciled when the service returns. Never fail-closed; never silently deny.
+- **Outage behavior:** not yet independently verified for a.guru's entitlement call; test before claiming fail-open with meter debt. Anonymous RPC errors currently fail open in the shared gate (see `_shared/gate.ts`).
 - **Lens budget (review W2.5):** anonymous ≤ 1 ask-faculty lens call, `compare` mode unavailable; members ≤ 3 lenses with `compare` allowed. Every response logs `tier` so E-run analyses can condition on depth (protects E1/E7 validity).
 
-Validator path (review W4.1): an allowlisted `AGURU_VALIDATOR_KEY` (env-only, never in client code, never relinquished to the browser) draws from its own pre-paid budget so contract tests and E-run probes do not consume the visitor quota they are verifying.
+Access implementation note (2026-10-11): public traffic uses the dedicated `a_guru_chat` hashed-IP bucket; signed-in traffic uses `a_guru_chat` in `use_feature`/`chat_feature_daily_limit`. The a.guru edge never toggles the institute-wide faculty-chat bypass.
 
-Retention (review W3.2): free-quota rows pruned after 48 h; member usage rows keyed by pseudonym only, aggregated upward for reporting; no PII is ever attached to metering records. Persona enforcement is version-pinned: the bundled `persona/a-guru.json` copy must match `AGURU_PERSONA_SHA` or the edge refuses service with the honest-degradation payload; the sha is logged per session in `eval_note` (review W3.3).
+Validator path: no validator key is implemented yet. Contract tests use a separate controlled bucket where possible; live quota tests consume the test network's daily allowance.
+
+Retention: the public quota table stores an IP-derived hash and UTC-day counter; an a.guru-specific cleanup/retention job has not yet been verified. Persona enforcement is version-pinned: the bundled `persona.json` is imported into the edge and its canonical JSON SHA-256 is compared to `AGURU_PERSONA_SHA`; mismatch refuses service; the sha prefix is logged per session.
 
 ## 6. Honest Fallbacks (unchanged)
 
