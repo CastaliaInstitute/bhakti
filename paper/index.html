@@ -337,7 +337,7 @@
 <body><div class="wrap">
 <header class="pagemast"><div class="kicker"><a href="/">bhakti.castalia.institute</a> · Castalia Institute — Bhakti inquiry</div></header>
 <h1 class="title">a.guru — An Experimental Computational Guru-Function</h1>
-<p style="text-align:center; font-style:italic; color:var(--muted); margin-top:.2rem;">Methods and Results · Version 0.1 · 2026-09-29</p>
+<p style="text-align:center; font-style:italic; color:var(--muted); margin-top:.2rem;">Methods and Results · Version 0.1 · revised 2026-10-11</p>
 
 <nav id="TOC" role="doc-toc">
 <ul>
@@ -1001,21 +1001,47 @@ validation rules</td>
 redirects to human teachers)</td>
 </tr>
 <tr>
+<td><code>a-guru</code> edge</td>
+<td><strong>deployed</strong></td>
+<td>A historical <code>a.prabhupada</code> comparison call followed by a
+second, independently authored <code>a.guru</code> synthetic-faculty
+response; no lens prose is passed through as the answer. The edge
+enforces the dial, forbidden-claims filter, persona SHA pin, and
+isolated <code>a_guru_chat</code> access gate.</td>
+</tr>
+<tr>
+<td>Synthetic faculty</td>
+<td><strong>seeded</strong></td>
+<td><code>a.guru</code> has a synthetic persona row in
+<code>faculty</code>; this is a policy persona, not a historical-person
+reconstruction.</td>
+</tr>
+<tr>
 <td>Web client</td>
 <td><strong>live</strong></td>
-<td>bhakti.castalia.institute — landing page describing the project plus
-the a.guru chat instrument (lower-right popup) exposing the Guru Dial
-and per-reply provenance chips</td>
+<td>bhakti.castalia.institute — lower-right chat, Guru Dial, bounded
+tab-local context, optional Supabase magic-link sign-in, and distinct
+membership-status UI.</td>
 </tr>
 <tr>
 <td>Faculty hierarchy</td>
 <td>seeded</td>
-<td><code>a.prabhupada</code> (behavioral layer),
+<td><code>a.prabhupada</code> (historical comparison lens),
 <code>a.bhaktivinoda</code> (modern interpretation), Jīva Gosvāmī (world
-model), Sivananda (comparison case) in the Castalia faculty system</td>
+model), Sivananda (comparison case).</td>
 </tr>
 </tbody>
 </table>
+<p><strong>Serving limits (2026-10-11):</strong> five anonymous or
+registered exchanges per UTC day on an a.guru-specific cap isolated from
+the institute-wide faculty-chat bypass. Active members are checked
+through existing entitlements and currently have no daily cap; a
+separate token ledger is not implemented. Conversation history is
+last-eight-turn, tab-local only. Provenance is response-level and
+broad-grained: <code>ask-faculty</code> does not yet return exact
+retrieved passage locators, so a.guru explicitly labels historical
+comparison as unlocated and does not claim sentence-level verification.
+These are prototype limitations, not evaluation results.</p>
 <h3
 id="63-design-analyses-inferences-from-structure--not-measurements">6.3
 Design analyses (inferences from structure — not measurements)</h3>
@@ -1026,14 +1052,13 @@ Design analyses (inferences from structure — not measurements)</h3>
 speaker-attributed records with per-turn scripture anchors supply
 exactly the <code>(situation → act)</code> supervision the GuruAct
 segmentation needs.</li>
-<li><strong>Provenance path citation is mechanically checkable.</strong>
-Inline citations (mean 8.8 per transcript; 1,960 distinct references
-already normalized into <code>SB x.y.z</code>-style pointers) mean every
-layer-1 anchor can be validated against Śāstra automatically; the audit
-trail of §5.4-E2 is a data pipeline, not a manual effort. Open caveat:
-citations require edition normalization (the census distinguishes "BG
-18.66 (1972)" from posthumous-edition references), and layer-1 validity
-inherits whatever edition-resolution error remains.</li>
+<li><strong>Citation extraction is machine-readable, not yet
+mechanically verified.</strong> Inline citations (mean 8.8 per
+transcript; 1,960 distinct extracted references) provide candidate
+layer-1 anchors. Edition normalization and validation against canonical
+verse records remain unfinished (the census distinguishes "BG 18.66
+(1972)" from posthumous-edition references); therefore the deployed
+a.guru service does not claim these as verified citations.</li>
 <li><strong>Situation-matching is feasible.</strong> Interlocutor
 diversity (journalists, skeptics, children, professionals — 933 named
 speakers already) supplies the analogical base for Counsel-mode
@@ -1046,12 +1071,11 @@ following are <strong>not results of this paper</strong>: any
 behavioral-fidelity score (E1); any leakage or fidelity audit outcome
 (E2); tradition-discrimination rates (E3); longitudinal effects (E4);
 ablation results (E5); dependency outcomes (E6); and any outcome of the
-consecration-reversal framing experiment (E7). Nor does this paper claim
-that a.guru's guidance is appropriate, effective, or guru-like. These
-require the MVP (Ask / Study / Dialogue with source-separated retrieval)
-deployed against the full corpus, and human evaluation panels. The MVP
-requires no fine-tuning; the central hypothesis is testable with a
-contemporary model plus hybrid retrieval and constructed provenance.</p>
+framing-invariance experiment (E7). Nor does this paper claim that
+a.guru's guidance is appropriate, effective, or guru-like. The service
+prototype is deployed, but none of these human or behavioral evaluations
+has run; they require expert panels and consented participant
+studies.</p>
 <h3 id="65-demonstration-transcript-synthetic-not-measurement">6.5
 Demonstration transcript (synthetic; not measurement)</h3>
 <p>To make the response shape concrete, the following structure
