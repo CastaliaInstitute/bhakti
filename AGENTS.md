@@ -11,12 +11,15 @@ Static GitHub Pages site, deployed from the **root of `main`** (`.nojekyll` pres
 
 Edge service specification: [a-guru-edge.md](a-guru-edge.md) — route (thin edge composing
 ask-faculty for historical lenses), dial→permitted-acts table, freemium rule
-(per a-guru-edge-review.md: **5 free exchanges**/visitor/24h keyed by person_ref —
+(per a-guru-edge-review.md: **5 free exchanges**/visitor/day on isolated
+`a_guru_chat` — anonymous identity is a server-side IP hash; `person_ref` is
+only a session-continuity key —
 an exchange = one user message plus whatever a.guru turns it occasion, never
 per-turn — then an honest 429 membership invitation rendered as instrument
-status; members token-metered with safe-default ceiling on auth-service outage;
-policy (dials, refusals, provenance) is unbought — membership buys depth only;
-free tier is paced, not abuse-proof).
+status; registered accounts retain the 5/day cap; active members use the existing
+membership entitlement and currently have no daily cap (a separate token ledger
+is not yet implemented); policy is the same for every tier; free tier is paced,
+not abuse-proof).
 
 `index.html` ships a lower-right chat popup. It POSTs to the endpoint in
 `localStorage.aguru.endpoint` (default `/api/a-guru`) and expects:
@@ -34,8 +37,16 @@ which is also the machine's doing). The UI already renders both kinds per chip.
 Client-known limits (documented v0.1 simplifications): the widget always sends
 `mode: "dialogue"` (the dial changes pedagogy) — Ask/Study/Counsel/Compare as
 distinct request modes arrive with the edge and richer UI; it sends an opaque
-`person_ref` (random UUID persisted in localStorage — the quota key, disclosed
-in the widget footer); in-flight submits are guarded. Until an engine exists
+`person_ref` (random UUID persisted in localStorage — used only for bounded
+in-tab continuity; the footer's device-key disclosure refers to the server-side
+hashed-IP quota); last eight turns are held in tab memory and sent with each
+request, never persisted between visits; in-flight submits are guarded. Member
+sign-in uses Supabase magic links; JWT is forwarded to the edge for entitlement
+checks. The edge
+calls the historical lens, then synthesizes through the synthetic `a.guru`
+faculty; it never returns historical-lens prose as its final answer. Provenance
+is response-level until ask-faculty exposes exact retrieved passage locators.
+Until an engine exists
 the widget degrades to an honest "not connected" message — never a fake guru
 answer; with an engine, 429 renders as instrument status, never as error or
 as fake guru content.
