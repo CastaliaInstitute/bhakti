@@ -613,9 +613,7 @@
       } else {
         addErr("The a.guru engine did not respond (HTTP " + r.status + "). The source documents remain available below.");
       }
-      if (!r.ok) { conversation.pop(); }
     } catch (err) {
-      conversation.pop();
       if (EP.indexOf("/api/a-guru") === 0) {
         addErr(
           "No a.guru engine is attached at this address yet (" + err.message + ").\n\n" +
