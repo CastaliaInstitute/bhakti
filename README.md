@@ -28,7 +28,7 @@ Formally: `G_functional ≟ G_guru`. If not, the difference is the principal obj
 
 **Never hide the boundary between what the tradition says and what the machine thinks.**
 
-Every response carries a provenance graph through five layers: Śāstra → Siddhānta → Ācārya → Guru Behavior → AI Inference. The last layer must never silently masquerade as one of the first four.
+The target architecture traces claims through five layers: Śāstra → Siddhānta → Ācārya → Guru Behavior → AI Inference. The live prototype currently returns response-level provenance for a historical lens plus a.guru synthesis; exact passage locators and per-claim traces are not yet available. Missing layers/locators are disclosed, never fabricated.
 
 ## Repository structure
 
@@ -69,8 +69,8 @@ The site is static HTML — open `index.html`, or run any static server from the
 
 ## Relationship to the Castalia faculty system
 
-a.guru participates in the Castalia Institute faculty-persona framework (`persona.schema.json` v1.1.0) but is a **research instrument, not a faculty persona** in the usual sense: it is not a reconstructed historical figure and makes no impersonation claims. Its persona artifact encodes the guru-function contract (provenance discipline, anti-sycophancy, no false initiation) rather than a historical voice.
+a.guru is registered as a **synthetic faculty persona** in the Castalia Institute system (`a.guru`, persona-schema v1.1.0), distinct from historical faculty such as `a.prabhupada`. The edge asks historical faculty for a comparison lens, then calls synthetic `a.guru` to author a separate response; it must never pass the historical-lens prose through as a.guru's voice.
 
 ## Status
 
-Design specification / research prototype — v0.1. MVP (DESIGN.md §26): corpus for Gītā, selected Bhāgavatam, Tattva + Bhakti Sandarbha, licensed Bhaktivinoda and Prabhupāda material; modes Ask / Study / Dialogue; source-separated RAG with provenance display.
+Design specification / research prototype — v0.1. Live dialogue uses one historical comparison lens followed by an independently authored synthetic a.guru response; conversation context is tab-local (last eight turns) and is not retained across visits. Provenance is response-level; exact retrieved source locators and per-claim provenance remain unimplemented. Anonymous and registered accounts have an isolated five-exchange/day a.guru cap; active membership is required for the member tier, which currently has no daily cap. There is no separate token ledger yet.
