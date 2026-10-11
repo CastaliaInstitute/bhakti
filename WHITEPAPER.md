@@ -5,7 +5,7 @@
 **Project:** Castalia Institute — Bhakti inquiry (`bhakti.castalia.institute`)
 **Instrument:** a.guru v0.1
 **Status of this paper:** corpus quantification *complete for the ingested sample*; system design *ratified as v0.1 specification*; behavioral evaluation *pre-registered, not yet executed*.
-**Version:** 0.1 · 2026-09-29
+**Version:** 0.1 · revised 2026-10-11
 **Companion documents:** [DESIGN.md](DESIGN.md) (system spec) · [ONTOLOGY.md](ONTOLOGY.md) (data schema) · [persona/a-guru.json](persona/a-guru.json) (guru-function contract) · [bibliotech](https://github.com/CastaliaInstitute/bibliotech) (corpus acquisition)
 
 ---
