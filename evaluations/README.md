@@ -93,3 +93,21 @@ Results:
   the 429 UI path follows below.
 - Magic-link UI is deployed in source; the email round-trip and a real member
   JWT session were not exercised in this run.
+
+### Live Pages/browser check (2026-10-11)
+
+Headless Chromium against `https://bhakti.castalia.institute/` after the Pages
+build:
+
+- Landing page returned 200; Supabase UMD client and public config loaded;
+  `authClient.createClient` initialized; opaque `person_ref` present.
+- Member sign-in control opens the email field; no email was sent in the test.
+- An anonymous request at the exhausted test-network quota rendered the actual
+  gate's HTTP 429 as `msg status`, with the public-limit copy and a safe,
+  validated `https://castalia.institute/join` link. No engine-error message or
+  generated guru answer appeared. Only console error was the expected 429.
+- Screenshot: `live-chat-revision-2026-10-11.png`.
+
+Limit: sign-in email round-trip, an active-member JWT, and member entitlement
+behavior were not exercised; these remain pending. This is real anonymous
+quota-path validation, not a fetch-stub simulation.
