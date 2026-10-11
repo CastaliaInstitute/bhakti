@@ -234,20 +234,24 @@ Delivered as reported in §4.2–4.4: a verified census of the corpus universe; 
 | `DESIGN.md` | ratified | system specification: formalization, provenance architecture, modes, ethics, MVP, phases II–III |
 | `ONTOLOGY.md` | draft v0.1 | entity schema: Claim, Pramāṇa, GuruAct, PersonState, Practice, Tradition, Interaction; provenance envelope; no-score/no-attainment validation rules |
 | `persona/a-guru.json` | validated | guru-function contract in the Castalia faculty-persona schema (v1.1.0): evidence hierarchy with AI inference last; forbidden claims (initiation, attainment verdicts); stress behavior (admits limits, redirects to human teachers) |
-| Web client | **live** | bhakti.castalia.institute — landing page describing the project plus the a.guru chat instrument (lower-right popup) exposing the Guru Dial and per-reply provenance chips |
-| Faculty hierarchy | seeded | `a.prabhupada` (behavioral layer), `a.bhaktivinoda` (modern interpretation), Jīva Gosvāmī (world model), Sivananda (comparison case) in the Castalia faculty system |
+| `a-guru` edge | **deployed** | A historical `a.prabhupada` comparison call followed by a second, independently authored `a.guru` synthetic-faculty response; no lens prose is passed through as the answer. The edge enforces the dial, forbidden-claims filter, persona SHA pin, and isolated `a_guru_chat` access gate. |
+| Synthetic faculty | **seeded** | `a.guru` has a synthetic persona row in `faculty`; this is a policy persona, not a historical-person reconstruction. |
+| Web client | **live** | bhakti.castalia.institute — lower-right chat, Guru Dial, bounded tab-local context, optional Supabase magic-link sign-in, and distinct membership-status UI. |
+| Faculty hierarchy | seeded | `a.prabhupada` (historical comparison lens), `a.bhaktivinoda` (modern interpretation), Jīva Gosvāmī (world model), Sivananda (comparison case). |
+
+**Serving limits (2026-10-11):** five anonymous or registered exchanges per UTC day on an a.guru-specific cap isolated from the institute-wide faculty-chat bypass. Active members are checked through existing entitlements and currently have no daily cap; a separate token ledger is not implemented. Conversation history is last-eight-turn, tab-local only. Provenance is response-level and broad-grained: `ask-faculty` does not yet return exact retrieved passage locators, so a.guru explicitly labels historical comparison as unlocated and does not claim sentence-level verification. These are prototype limitations, not evaluation results.
 
 ### 6.3 Design analyses (inferences from structure — not measurements)
 
 From the corpus structure alone, three design hypotheses are advanced (not yet tested):
 
 - **The act model is learnable.** Dialogue-dense, speaker-attributed records with per-turn scripture anchors supply exactly the `(situation → act)` supervision the GuruAct segmentation needs.
-- **Provenance path citation is mechanically checkable.** Inline citations (mean 8.8 per transcript; 1,960 distinct references already normalized into `SB x.y.z`-style pointers) mean every layer-1 anchor can be validated against Śāstra automatically; the audit trail of §5.4-E2 is a data pipeline, not a manual effort. Open caveat: citations require edition normalization (the census distinguishes "BG 18.66 (1972)" from posthumous-edition references), and layer-1 validity inherits whatever edition-resolution error remains.
+- **Citation extraction is machine-readable, not yet mechanically verified.** Inline citations (mean 8.8 per transcript; 1,960 distinct extracted references) provide candidate layer-1 anchors. Edition normalization and validation against canonical verse records remain unfinished (the census distinguishes "BG 18.66 (1972)" from posthumous-edition references); therefore the deployed a.guru service does not claim these as verified citations.
 - **Situation-matching is feasible.** Interlocutor diversity (journalists, skeptics, children, professionals — 933 named speakers already) supplies the analogical base for Counsel-mode retrieval.
 
 ### 6.4 What has *not* yet been measured
 
-In keeping with the maxim — and with statistical honesty — the following are **not results of this paper**: any behavioral-fidelity score (E1); any leakage or fidelity audit outcome (E2); tradition-discrimination rates (E3); longitudinal effects (E4); ablation results (E5); dependency outcomes (E6); and any outcome of the consecration-reversal framing experiment (E7). Nor does this paper claim that a.guru's guidance is appropriate, effective, or guru-like. These require the MVP (Ask / Study / Dialogue with source-separated retrieval) deployed against the full corpus, and human evaluation panels. The MVP requires no fine-tuning; the central hypothesis is testable with a contemporary model plus hybrid retrieval and constructed provenance.
+In keeping with the maxim — and with statistical honesty — the following are **not results of this paper**: any behavioral-fidelity score (E1); any leakage or fidelity audit outcome (E2); tradition-discrimination rates (E3); longitudinal effects (E4); ablation results (E5); dependency outcomes (E6); and any outcome of the framing-invariance experiment (E7). Nor does this paper claim that a.guru's guidance is appropriate, effective, or guru-like. The service prototype is deployed, but none of these human or behavioral evaluations has run; they require expert panels and consented participant studies.
 
 ### 6.5 Demonstration transcript (synthetic; not measurement)
 
