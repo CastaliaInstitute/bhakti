@@ -40,8 +40,8 @@ Client-known limits (documented v0.1 simplifications): the widget always sends
 `mode: "dialogue"` (the dial changes pedagogy) — Ask/Study/Counsel/Compare as
 distinct request modes arrive with the edge and richer UI; it sends an opaque
 `person_ref` (random UUID persisted in localStorage — used only for bounded
-in-tab continuity; the footer's device-key disclosure refers to the server-side
-hashed-IP quota); last eight turns are held in tab memory and sent with each
+in-tab continuity; the footer discloses that quota identity is a server-side
+network-address hash); last eight turns are held in tab memory and sent with each
 request, never persisted between visits; in-flight submits are guarded. Member
 sign-in uses Supabase magic links; JWT is forwarded to the edge for entitlement
 checks. The edge
