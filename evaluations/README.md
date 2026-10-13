@@ -129,3 +129,16 @@ Results — pass:
 This is a declared client-contract simulation, not a member-server/auth test.
 The magic-link round trip and active-member JWT remain untested. See
 `member-limit-widget-validation-2026-10-11.png`.
+
+### Final revalidation after copy/auth updates (2026-10-11)
+
+- Live-page Chromium: site 200; Supabase public config + SDK initialized;
+  `person_ref` created; Member sign-in toggle opens the email form; anonymous
+  `listen` request returns the deterministic reflection path with AI-inference
+  provenance and no console errors. This browser's IP bucket was not exhausted
+  at that run, so it did not hit the server gate.
+- Live edge shell request from the exhausted test-network bucket: HTTP 429 with
+  the revised no-pressure copy ("You've used today's free a.guru exchanges…")
+  and `https://castalia.institute/join`.
+- The 403 member-limit UI path is the fetch-stub test recorded above; an actual
+  active-member JWT/email round-trip remains untested.
