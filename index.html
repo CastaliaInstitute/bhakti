@@ -281,9 +281,10 @@
   <section>
     <h2>Never hide the boundary</h2>
     <p>
-      Most systems retrieve a few passages and produce a seamless answer. a.guru
-      deliberately resists seamlessness. Every response instead shows its ancestry
-      through distinct epistemic layers:
+      Most systems retrieve a few passages and produce a seamless answer. The
+      a.guru design target resists that seamlessness by tracing five epistemic
+      layers. The live prototype currently shows a coarser, response-level split
+      between an unlocated historical comparison and a.guru's synthesis:
     </p>
     <ul class="layers">
       <li><span><b>Śāstra</b> · scripture</span><span class="note">Gītā · Bhāgavatam · Sandarbha sources</span></li>
@@ -293,9 +294,9 @@
       <li class="machine"><span><b>a.guru</b> · machine inference</span><span class="note">always labeled — never disguised as tradition</span></li>
     </ul>
     <p class="smallprint" style="margin-top:.8rem; color: var(--muted);">
-      "The tradition says…" and "the machine infers…" are kept visibly apart. That
-      separation is the instrument: a limitation of artificial intelligence, turned
-      into the central philosophical tool of the project.
+      The live prototype does not yet attach verified source locators to individual
+      claims. That distinction is the next provenance milestone, not a feature we
+      claim is complete.
     </p>
   </section>
 
@@ -334,7 +335,9 @@
       author its own response. Exact retrieved passage locators are not yet
       returned by the faculty service, so provenance is response-level, not
       sentence-level. When a locator is unavailable, a.guru says so rather than
-      inventing one.
+      inventing one. Anonymous and registered access is capped at five requests
+      per day; active membership is checked by Supabase. There is not yet a
+      separate token-usage ledger.
     </p>
   </section>
 
@@ -536,8 +539,8 @@
           link.target = "_blank";
           link.rel = "noopener noreferrer";
           link.textContent = "Membership information";
-          link.style.display = "inline-block";
-          link.style.marginTop = ".5rem";
+          link.style.display = "block";
+          link.style.marginTop = ".4rem";
           node.appendChild(link);
         }
       } catch (_) {}
