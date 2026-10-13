@@ -111,3 +111,21 @@ build:
 Limit: sign-in email round-trip, an active-member JWT, and member entitlement
 behavior were not exercised; these remain pending. This is real anonymous
 quota-path validation, not a fetch-stub simulation.
+
+### 2026-10-11 — session context and member-limit UI contract (declared fetch stub)
+
+On the live Pages origin, the client SDK/config loaded, the Member sign-in
+control opened the email form, and a controlled `fetch` stub exercised two
+successful turns followed by a 403 `upgrade_required` payload.
+
+Results — pass:
+
+- Second POST included the first user/assistant pair (`messages.length = 2`);
+  requests also carried the persisted opaque `person_ref`.
+- 403 with `upgrade_required: true` rendered as `msg status`, not engine error.
+- Join link rendered and was constrained to HTTPS under `castalia.institute`.
+- No page errors; no email was sent.
+
+This is a declared client-contract simulation, not a member-server/auth test.
+The magic-link round trip and active-member JWT remain untested. See
+`member-limit-widget-validation-2026-10-11.png`.
