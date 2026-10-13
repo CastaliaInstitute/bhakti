@@ -142,3 +142,8 @@ The magic-link round trip and active-member JWT remain untested. See
   and `https://castalia.institute/join`.
 - The 403 member-limit UI path is the fetch-stub test recorded above; an actual
   active-member JWT/email round-trip remains untested.
+
+Disclosure correction (2026-10-11): the visible footer now states that the daily
+quota uses a **server-side network-address hash** and that no name/email is in
+the quota key. Earlier 2026-09-29 entries use the prior, less-accurate phrase
+"device key" and are historical records of that earlier UI revision.
