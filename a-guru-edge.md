@@ -69,7 +69,7 @@ Anti-sycophancy is always on: instead of "your feelings are completely valid," t
 
 ## 4. Provenance Pipeline
 
-Five layers, retrieved independently and composed at synthesis-time only (Design §19):
+Target architecture: five layers retrieved independently and composed at synthesis-time (Design §19):
 
 1. **Śāstra** — verse-addressable Tier-I corpus (bibliotech-acquired; translation keyed by translator/edition, never merged).
 2. **Siddhānta** — Ṣaṭ Sandarbhas structured ontology (Jīva's world model; Tattva → Bhagavat → Paramātma → Kṛṣṇa → Bhakti → Prīti arc, per ONTOLOGY).
@@ -77,7 +77,9 @@ Five layers, retrieved independently and composed at synthesis-time only (Design
 4. **Guru Behavior** — VedaBase interaction corpus via ask-faculty lenses (`a.prabhupada` room-conversation RAG for situation analogues).
 5. **AI Inference** — the composed response, labeled, with (S, A, I) confidence triple surfaced as chips, not hidden scores.
 
-Dial *filters* which layers are permitted to surface in synthesis: at `question`, layers 1–4 are quoted, not interpreted; at `teach`, layer interpretation is allowed; `challenge` may confront with layer-4 precedent. The dial never changes *truth*, only permitted acts (Design §21).
+**Deployed v0.1 reality (2026-10-11):** only layer 4 is currently queried as a single `a.prabhupada` comparison lens; its exact retrieved passages/locators are not returned by ask-faculty. A second call to synthetic `a.guru` writes the final answer from that bounded historical comparison. Layers 1–3 are not independently retrieved; provenance is response-level (`guru_behavior` + `ai_inference`), not claim-level. A deterministic source note labels this limitation.
+
+Dial *targets* permitted acts, not truth (Design §21). In the deployed v0.1 path, `listen` is an edge-authored reflection and makes no lens call; `question`, `teach`, and `challenge` pass policy instructions to the synthetic persona prompt. This is prompt-level/best-effort behavior, not a deterministic act filter; E2 leakage measurement remains required.
 
 ## 5. Metering — Free and Member Tiers
 
@@ -112,6 +114,6 @@ The three honest states survive endpoint failures:
 ## 7. Deployment Contract
 
 - Supabase Deno Edge Function in the castalia.institute repo `supabase/functions/a-guru/index.ts`.
-- env: `AGURU_PERSONA_SHA` (pin for the bundled persona copy), `AGURU_VALIDATOR_KEY`, `ASK_FACULTY_URL`, `SUPABASE_URL`, `AGURU_FREE_TOKEN_CEILING`, etc. All via `supabase secrets set`, never committed (consistent `AGURU_*` naming; review passes replaced a stray nonconforming name).
+- env: `AGURU_PERSONA_SHA` (pin for the bundled persona copy), optional `AGURU_PUBLIC_CHAT_DAILY_MAX` (default 5), optional `AGURU_PUBLIC_CHAT_DISABLE_LIMIT` (emergency switch; default false), `ASK_FACULTY_URL`, `SUPABASE_URL`. All secrets via `supabase secrets set`, never committed.
 - CORS: same as `ask-faculty` (`bhakti.castalia.institute`, `github.io` allowed origins), `verify_jwt`: false for the public free endpoint (weight-capped by quota), `Authorization` forwarded downstream for the member path.
 - License note: responses quote sources under per-source rights rules; the endpoint adds citations **with locator + rights ref** toward the person-relevant layers, per AGENTS.md's two-kind provenance paragraph.
