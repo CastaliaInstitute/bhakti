@@ -147,3 +147,7 @@ Disclosure correction (2026-10-11): the visible footer now states that the daily
 quota uses a **server-side network-address hash** and that no name/email is in
 the quota key. Earlier 2026-09-29 entries use the prior, less-accurate phrase
 "device key" and are historical records of that earlier UI revision.
+
+Final page-state screenshot: `live-chat-final-2026-10-11.png` — real live
+listen response (not a stub), sign-in form open, revised network-address-hash
+privacy disclosure visible. HTTP 200; Supabase client loaded; no console errors.
