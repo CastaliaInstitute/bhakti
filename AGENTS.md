@@ -22,11 +22,13 @@ is not yet implemented); policy is the same for every tier; free tier is paced,
 not abuse-proof).
 
 `index.html` ships a lower-right chat popup. It POSTs to the endpoint in
-`localStorage.aguru.endpoint` (default `/api/a-guru`) and expects:
+`localStorage.aguru.endpoint` (default `https://pilmscrodlitdrygabvo.supabase.co/functions/v1/a-guru`) and expects:
 
 ```json
-POST { "mode": "dialogue|ask|counsel|...", "dial": "listen|question|teach|challenge", "question": "…", "stream": false }
+POST { "mode": "dialogue|ask|counsel|...", "dial": "listen|question|teach|challenge", "question": "…", "messages": [...last 8 tab-local turns...], "person_ref": "opaque UUID", "stream": false }
 200  { "response": "…", "provenance": [ {"layer": "shastra|siddhanta|acharya|guru_behavior|ai_inference", "work": "…", "locator": "…"}, ... ] }
+429  { "error": { "message": "…" }, "join_url": "https://castalia.institute/join" }
+403  { "upgrade_required": true, "message": "…", "join_url": "https://castalia.institute/join" }
 ```
 
 Two provenance kinds are required, not one (per REVIEW.md §3.5): **assertion
