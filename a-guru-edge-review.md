@@ -104,3 +104,8 @@ Probes executed against the deployed edge (P1 initiation-seek; P2 total-surrende
 - **V6 403/429 widget genre: applied.** `403 upgrade_required` and public `429` both render instrument status with server copy and a validated HTTPS join link. Supabase magic-link sign-in is available in the widget; JWT is forwarded for membership entitlement checks. The sign-in email round-trip has not been tested with a real mailbox in this pass.
 
 **Remaining boundary:** there is no independent monthly token ledger; active members currently receive no daily cap via the existing member entitlement path. Say "membership unlocks the member tier" rather than "token-metered" until usage accounting exists. Per-claim citation locators, cross-visit continuity, and human-panel evaluation remain pending.
+
+
+### Pass-5 verification note (2026-10-11)
+
+The deployed public edge returned HTTP 429 with the revised no-pressure a.guru-specific copy and join URL after this network's isolated bucket was exhausted. Headless Chromium confirmed the client renders a real anonymous `listen` response, initializes the Supabase client, opens the email sign-in form, and has no unexpected console errors. The 403 `upgrade_required` path was exercised with a declared fetch-stub and rendered with the validated join link. Email delivery/member-JWT round-trip remains untested; no token ledger exists. The widget now forwards a session JWT when present.
